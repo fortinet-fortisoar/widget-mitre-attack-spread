@@ -1,0 +1,130 @@
+<form data-ng-submit="save()" class="noMargin" name="editWidgetForm" data-ng-class="{'state-wait': processing }" novalidate>
+  <div class="modal-header">
+    <h3 class="modal-title col-md-9">MITRE ATT&CK Alert/Incident Spread - Settings</h3>
+      <button type="button" class="close" data-ng-click="cancel()" data-dismiss="modal" aria-label="Close" id="close-edit-widget-form-btn">
+        <div aria-hidden="true" class="version-button">+</div>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="title" class="control-label">Widget Title</label>
+      <input id="title" name="title" type="text" class="form-control" placeholder="MITRE ATT&CK Alert/Incident Spread" data-ng-model="config.title">
+    </div>
+    <div class="form-group">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Enable Heatmap View</span>
+        <span data-uib-tooltip="Heatmap highlights any Alert and Incident available to view in the widget" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.enableHeatmap ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="enableHeatmap();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <span data-ng-class="toggleDisabled ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Expand All Techniques</span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.displayTechniques ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleTechniques();" data-ng-disabled="toggleDisabled">
+              <span class="custom-toggle-handle"></span>
+              <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+      <span data-ng-show="toggleDisabled" data-uib-tooltip="This toggle is enabled by default in record detail view to show related Alerts and Incidents" 
+            data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+    </div>
+    <div class="form-group" data-ng-if="config.displayTechniques">
+      <span data-ng-class="toggleDisabled ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Expand All Subtechniques</span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.displaySubtechniques ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleSubtechniques();" data-ng-disabled="toggleDisabled">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+      <span data-ng-show="toggleDisabled" data-uib-tooltip="This toggle is enabled by default in record detail view to show related Alerts and Incidents" 
+            data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+    </div>
+    <div class="form-group">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Hide Empty Tactics</span>
+        <span data-uib-tooltip="A Tactic is considered empty by the widget if it doesn't have any Technique relationships" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.hideTactics ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="hideTactics();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Hide Empty Techniques</span>
+        <span data-uib-tooltip="A Technique is considered empty by the widget if it doesn't have any Subtechnique, Alert, or Incident relationships" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.hideTechniques ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="hideTechniques();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <div class="form-group" data-ng-if="config.hideTechniques">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Hide Tactics If All Related Techniques Are Hidden</span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.hideParentTactics ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="hideParentTactics();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Filter Based on Groups</span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.filterGroups ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="filterGroups();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <div class="form-group">
+      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md" data-ng-if="processing">
+        <cs-spinner data-show-background="true"></cs-spinner>
+      </div>
+    </div>
+    <div class="form-group" data-ng-if="config.filterGroups && !processing">
+      <div class="selectionContainer">
+        <label for="groups" class="control-label">Groups To Filter With</label>
+        <select multiple name="groups" class="form-control" data-ng-model="config.selectedGroups">
+          <option>Select</option>
+          <option data-ng-repeat="group in config.groupsRecords | orderBy:'name.value'" data-ng-value="group.uuid.value">{{ group.name.value }} ({{ group.mitreId.value }})</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id="edit-widget-save" type="submit" class="btn btn-sm btn-primary"><i class="icon icon-check margin-right-sm"></i>Save</button>
+    <button id="edit-widget-cancel" type="button" class="btn btn-sm btn-default" data-ng-click="cancel()"><i class="icon icon-close margin-right-sm"></i>Close</button>
+  </div>
+</form>
