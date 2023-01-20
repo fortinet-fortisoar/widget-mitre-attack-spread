@@ -1,0 +1,116 @@
+/* outermost table (tactics) */
+.mitre-table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* alerts and incidents table*/
+.alert-incident-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* table header for tactics (outermost table) */
+.mitre-tactics {
+  text-align: center;
+  color: white;
+}
+
+/* widens tactics container */
+.div-style {
+  width: 150px;
+}
+
+/* paints the grey line below tactics row */
+thead tr:last-of-type{
+  border-bottom: 2px solid #696969;
+}
+
+/* tactics cells */
+.mitre-tactics-cells {
+  min-width: 100%;
+  width: 96px;
+  font-size: 13px;
+}
+
+/* techniques count for each tactic */
+.mitre-techniques-count {
+  font-size: 9px;
+  padding-bottom: 2px;
+}
+
+/* table body for outermost table. this is where techniques are */
+.mitre-techniques {
+  padding: 12px;
+  text-align: left;
+  color: white;
+  font-size: 11px;
+  vertical-align: top;
+}
+
+/* techniques table */
+.inner-mitre-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* techniques cells */
+.mitre-techniques-cells {
+  border: 2px solid #0D1217;
+}
+
+/* font styling for counters on techniques */
+.counter-font {
+  font-size: 9px;
+}
+
+/* table for subtechniques (currently wraps alerts and incidents as well) */
+.mitre-subtechniques-table {
+  border: 2px solid #04AAB1;
+}
+
+/* controls hover behavior for individual 
+   subtechnique/alert/incident cells under techniques */
+.mitre-relationships-cells:hover {
+  background-color: #323A47;
+}
+
+/* contorls hover behavior for individual
+   alert/incident cells under subtechniques */
+.mitre-relationships-cells-child:hover {
+  background-color: #4F5D72;
+}
+
+/* makes techniques' names bold */
+.bold {
+  font-weight: bold;
+}
+
+/* disables hyperlink behavior of counters if there are no relationships found */
+a.disable {
+  pointer-events: none;
+  color: white;
+}
+
+/* shrinks the cs spinner for loading relationships */
+.shrink {
+  -moz-transform: scale(0.75);
+  -webkit-transform: scale(0.75);
+  -o-transform: scale(0.75);
+  -ms-transform: scale(0.75);
+  transform: scale(0.75);
+}
+
+/* sizing for edit view toggles */
+.edit-toggles {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+.heatmap {
+  background-color: #D18700;
+}
