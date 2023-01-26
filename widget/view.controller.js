@@ -71,7 +71,10 @@
       var tacticsCollection = new PagedCollection($scope.tactics.module, null, {"$limit": $scope.tactics.query.limit});
       tacticsCollection.query = new Query($scope.tactics.query);
       tacticsCollection.loadGridRecord().then(function() {
-        $scope.tacticsRecords = tacticsCollection.fieldRows;
+        angular.forEach(tacticsCollection.fieldRows, function(tactic) {
+          tactic._mitreId = tactic.mitreId.value;
+        });
+        $scope.tacticsRecords = _.sortBy(tacticsCollection.fieldRows, '_mitreId');
         $scope.tacticsRecords._total_hidden = 0;
         $scope.tacticsRecords._toggled = $scope.config.hideTactics || $scope.config.hideParentTactics;
         $scope.processing = false;
