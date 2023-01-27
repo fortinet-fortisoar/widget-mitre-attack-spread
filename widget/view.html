@@ -25,7 +25,7 @@
       <br>
       <div data-ng-if="!processing && (tacticsRecords.length > 0)">
         <table class="mitre-table">
-          <thead class="mitre-tactics">
+          <thead data-ng-class="currentTheme == 'light' ? 'mitre-tactics-light' : 'mitre-tactics'">
             <tr>
               <td class="mitre-tactics-cells padding-sm" data-ng-repeat="tactic in tacticsRecords"
                   data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
@@ -48,7 +48,7 @@
                   data-tooltip-append-to-body="true">{{ tactic._hidden_techniques_count != 0 ? '(' + tactic._hidden_techniques_count + ' hidden)' : '' }}</a></td>
             </tr>
           </thead>
-          <tbody class="mitre-techniques">
+          <tbody data-ng-class="currentTheme == 'light' ? 'mitre-techniques-light' : 'mitre-techniques'">
             <tr>
               <td class="padding-sm" data-ng-repeat="tactic in tacticsRecords" data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
                 <table class="inner-mitre-table" width="100%">
@@ -59,7 +59,7 @@
                       <div class="counter-font">{{ technique.mitreId }}</div>
                       <br>
                       <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._subtechniqueCount == 0}" href=""
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._subtechniqueCount == 0} : {'disable': technique._subtechniqueCount == 0}" href=""
                            data-ng-click="toggleShowRelationships(technique, 'subtechniques'); $event.stopPropagation();">
                           Subtechniques: {{ technique._subtechniqueCount }}</a>
                       </div>
@@ -75,7 +75,7 @@
                               <div class="padding-sm">{{ subtechnique.name }}</div>
                               <br>
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="{'disable': subtechnique._alertCount == 0}" href=""
+                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._alertCount == 0} : {'disable': subtechnique._alertCount == 0}" href=""
                                   data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'alerts'); $event.stopPropagation();">
                                   Alerts: {{ subtechnique._alertCount }}</a>
                               </div>
@@ -94,7 +94,7 @@
                               </div>
                               <br data-ng-show="subtechnique._show_alerts">
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="{'disable': subtechnique._incidentCount == 0}" href=""
+                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._incidentCount == 0} : {'disable': subtechnique._incidentCount == 0}" href=""
                                   data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'incidents'); $event.stopPropagation();">
                                   Incidents: {{ subtechnique._incidentCount }}</a>
                               </div>
@@ -117,7 +117,7 @@
                       </div>
                       <br data-ng-show="technique._show_subtechniques">
                       <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._alertCount == 0}" href=""
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._alertCount == 0} : {'disable': technique._alertCount == 0}" href=""
                            data-ng-click="toggleShowRelationships(technique, 'alerts'); $event.stopPropagation();">
                           Alerts: {{ technique._alertCount }}</a>
                       </div>
@@ -136,7 +136,7 @@
                       </div>
                       <br data-ng-show="technique._show_alerts">
                       <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._incidentCount == 0}" href=""
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._incidentCount == 0} : {'disable': technique._incidentCount == 0}" href=""
                            data-ng-click="toggleShowRelationships(technique, 'incidents'); $event.stopPropagation();">
                           Incidents: {{ technique._incidentCount }}</a>
                       </div>

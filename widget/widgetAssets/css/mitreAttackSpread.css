@@ -16,6 +16,11 @@
   color: white;
 }
 
+.mitre-tactics-light {
+  text-align: center;
+  color: black;
+}
+
 /* widens tactics container */
 .div-style {
   width: 150px;
@@ -44,6 +49,14 @@ thead tr:last-of-type{
   padding: 12px;
   text-align: left;
   color: white;
+  font-size: 11px;
+  vertical-align: top;
+}
+
+.mitre-techniques-light {
+  padding: 12px;
+  text-align: left;
+  color: black;
   font-size: 11px;
   vertical-align: top;
 }
@@ -91,6 +104,11 @@ thead tr:last-of-type{
 a.disable {
   pointer-events: none;
   color: white;
+}
+
+a.disable-light {
+  pointer-events: none;
+  color: black;
 }
 
 /* shrinks the cs spinner for loading relationships */

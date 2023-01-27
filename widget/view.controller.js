@@ -4,12 +4,12 @@
     .module('cybersponse')
     .controller('mitreAttackSpread100Ctrl', mitreAttackSpread100Ctrl);
 
-  mitreAttackSpread100Ctrl.$inject = ['$scope', 'config', 'appModulesService', 'currentPermissionsService',
+  mitreAttackSpread100Ctrl.$inject = ['$scope', 'config', 'appModulesService', 'currentPermissionsService', 'usersService',
     '$state', '$filter', 'PagedCollection', 'Query', 'Modules', 'ALL_RECORDS_SIZE', 'API', '$resource',
     '_'
   ];
 
-  function mitreAttackSpread100Ctrl($scope, config, appModulesService, currentPermissionsService,
+  function mitreAttackSpread100Ctrl($scope, config, appModulesService, currentPermissionsService, usersService, 
     $state, $filter, PagedCollection, Query, Modules, ALL_RECORDS_SIZE, API, $resource, _) {
 
     $scope.tactics = {"module": "mitre_tactics",
@@ -39,6 +39,8 @@
     $scope.showInDetailView = showInDetailView;
     $scope.findRelatedTactics = findRelatedTactics;
     $scope.loadGroupRelationships = loadGroupRelationships;
+    $scope.currentUser = usersService.getCurrentUser();
+    $scope.currentTheme = 'dark';
     // angular.forEach($scope.modules, function(module) {
     //   $scope.modulesPermissions.push(currentPermissionsService.getPermission(module));
     // });
@@ -51,6 +53,9 @@
     init();
 
     function init() {
+      if ($scope.currentUser) {
+        $scope.currentTheme = $scope.currentUser['@settings'].user.view.theme;
+      }
       if ($state.params.page.includes('detail')) {
         $scope.detail_display = true;
         // enforce the technique and subtechnique toggles to expand as it's needed to see linked alerts/incidents
