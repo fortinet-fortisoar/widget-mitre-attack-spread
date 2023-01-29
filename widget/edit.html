@@ -10,7 +10,21 @@
       <label for="title" class="control-label">Widget Title</label>
       <input id="title" name="title" type="text" class="form-control" placeholder="MITRE ATT&CK Alert/Incident Spread" data-ng-model="config.title">
     </div>
-    <div class="form-group">
+    <div class="form-group" data-ng-hide="toggleHideCoverage">
+      <span class="custom-toggle-btn pull-left">
+        <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Show Alert and Incident Coverage</span>
+        <span data-uib-tooltip="Enabling this filter will highlight and expand all Techniques and Subtechniques with linked Alerts/Incidents" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+        <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
+          <span class="custom-toggle-switch-base" data-ng-class="config.enableCoverage ? 'custom-toggle-active': 'custom-toggle-inactive'">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="enableCoverage();">
+            <span class="custom-toggle-handle"></span>
+            <span class="custom-toggle-root"></span>
+          </span>
+          <span class="custom-toggle-track"></span>
+        </span>
+      </span>
+    </div>
+    <!-- <div class="form-group">
       <span class="custom-toggle-btn pull-left">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Enable Heatmap View</span>
         <span data-uib-tooltip="Heatmap highlights any Alert and Incident available to view in the widget" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
@@ -23,13 +37,13 @@
           <span class="custom-toggle-track"></span>
         </span>
       </span>
-    </div>
+    </div> -->
     <div class="form-group">
-      <span data-ng-class="toggleDisabled ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
+      <span data-ng-class="toggleDisabled || config.toggleDisabledExpand ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Expand All Techniques</span>
         <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
           <span class="custom-toggle-switch-base" data-ng-class="config.displayTechniques ? 'custom-toggle-active': 'custom-toggle-inactive'">
-            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleTechniques();" data-ng-disabled="toggleDisabled">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleTechniques();" data-ng-disabled="toggleDisabled || config.toggleDisabledExpand">
               <span class="custom-toggle-handle"></span>
               <span class="custom-toggle-root"></span>
           </span>
@@ -40,11 +54,11 @@
             data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
     </div>
     <div class="form-group" data-ng-if="config.displayTechniques">
-      <span data-ng-class="toggleDisabled ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
+      <span data-ng-class="toggleDisabled || config.toggleDisabledExpand ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Expand All Subtechniques</span>
         <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
           <span class="custom-toggle-switch-base" data-ng-class="config.displaySubtechniques ? 'custom-toggle-active': 'custom-toggle-inactive'">
-            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleSubtechniques();" data-ng-disabled="toggleDisabled">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="toggleSubtechniques();" data-ng-disabled="toggleDisabled || config.toggleDisabledExpand">
             <span class="custom-toggle-handle"></span>
             <span class="custom-toggle-root"></span>
           </span>
@@ -82,7 +96,7 @@
         </span>
       </span>
     </div>
-    <div class="form-group" data-ng-if="config.hideTechniques">
+    <!-- <div class="form-group" data-ng-if="config.hideTechniques">
       <span class="custom-toggle-btn pull-left">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Hide Tactics If All Related Techniques Are Hidden</span>
         <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
@@ -94,7 +108,7 @@
           <span class="custom-toggle-track"></span>
         </span>
       </span>
-    </div>
+    </div> -->
     <div class="form-group">
       <span class="custom-toggle-btn pull-left">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Filter Based on Groups</span>

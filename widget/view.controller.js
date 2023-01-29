@@ -9,7 +9,7 @@
     '_'
   ];
 
-  function mitreAttackSpread100Ctrl($scope, config, appModulesService, currentPermissionsService, usersService, 
+  function mitreAttackSpread100Ctrl($scope, config, appModulesService, currentPermissionsService, usersService,
     $state, $filter, PagedCollection, Query, Modules, ALL_RECORDS_SIZE, API, $resource, _) {
 
     $scope.tactics = {"module": "mitre_tactics",
@@ -41,6 +41,7 @@
     $scope.loadGroupRelationships = loadGroupRelationships;
     $scope.currentUser = usersService.getCurrentUser();
     $scope.currentTheme = 'dark';
+    $scope.globalRefresh = globalRefresh;
     // angular.forEach($scope.modules, function(module) {
     //   $scope.modulesPermissions.push(currentPermissionsService.getPermission(module));
     // });
@@ -157,7 +158,7 @@
               }
 
               // load all relationships immediately if it's being enforced by edit filters
-              if ($scope.config.displayTechniques) {
+              if ($scope.config.displayTechniques || $scope.config.enableCoverage) {
                 if (countObject.techniques > 0) {
                   toggleShowRelationships(technique, 'subtechniques');
                 }
@@ -175,6 +176,8 @@
     }
 
     function getSubtechniqueRelationshipsCount(technique) {
+      technique._show_subtechniques_coverage = false;
+      
       var query_body = {
         module: $scope.techniques.module,
         limit: ALL_RECORDS_SIZE,
@@ -205,12 +208,14 @@
             subtechnique._incidentCount = countObject.incidents;
             
             // load all relationships immediately if it's being enforced by edit filters
-            if ($scope.config.displaySubtechniques) {
+            if ($scope.config.displaySubtechniques || $scope.config.enableCoverage) {
               if (countObject.alerts > 0) {
                 toggleShowSubtechniqueRelationships(subtechnique, 'alerts');
+                technique._show_subtechniques_coverage = true;
               }
               if (countObject.incidents > 0) {
                 toggleShowSubtechniqueRelationships(subtechnique, 'incidents');
+                technique._show_subtechniques_coverage = true;
               }
             }
           }
@@ -223,6 +228,9 @@
       if (technique['_show_' + module_name] === undefined || technique['_show_' + module_name] === false) {
         // show relationships
         technique['_show_' + module_name] = true;
+        if ($scope.config.enableCoverage) {
+          technique._show_subtechniques = false;
+        }
       }
       else if (technique['_show_' + module_name] === true) {
         // hide relationships
@@ -455,6 +463,10 @@
           }
         }
       });
+    }
+
+    function globalRefresh(){
+      init();
     }
   }
 })();

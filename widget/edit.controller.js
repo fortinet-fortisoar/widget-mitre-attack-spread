@@ -12,6 +12,7 @@
         $scope.config = config;
 
         $scope.toggleDisabled = false;
+        $scope.toggleHideCoverage = false;
 
         $scope.toggleTechniques = toggleTechniques;
         $scope.toggleSubtechniques = toggleSubtechniques;
@@ -24,6 +25,8 @@
         $scope.loadGroups = loadGroups;
 
         $scope.enableHeatmap = enableHeatmap;
+
+        $scope.enableCoverage = enableCoverage;
 
         $scope.groups = {"module": "mitre_groups",
                          "query": {"limit": ALL_RECORDS_SIZE}};
@@ -52,6 +55,12 @@
           if ($scope.config.enableHeatmap == undefined) {
             $scope.config.enableHeatmap = false;
           }
+          if ($scope.config.enableCoverage == undefined) {
+            $scope.config.enableCoverage = false;
+          }
+          if ($scope.config.toggleDisabledExpand == undefined) {
+            $scope.config.toggleDisabledExpand = false;
+          }
 
           if ($scope.config.previousGroups && $scope.config.filterGroups) {
             $scope.config.selectedGroups = $scope.config.previousGroups;
@@ -65,6 +74,7 @@
           
           if ($state.params.page.includes('detail')) {
             $scope.toggleDisabled = true;
+            $scope.toggleHideCoverage = true;
           }
         }
 
@@ -81,6 +91,7 @@
 
         function hideTactics() {
           $scope.config.hideTactics = !$scope.config.hideTactics;
+          $scope.hideParentTactics();
         }
         function hideTechniques() {
           $scope.config.hideTechniques = !$scope.config.hideTechniques;
@@ -119,12 +130,21 @@
           $scope.config.enableHeatmap = !$scope.config.enableHeatmap;
         }
 
+        function enableCoverage() {
+          $scope.config.enableCoverage = !$scope.config.enableCoverage;
+          $scope.config.toggleDisabledExpand = !$scope.config.toggleDisabledExpand;
+          if ($scope.config.enableCoverage) {
+            $scope.config.displayTechniques = false;
+            $scope.config.displaySubtechniques = false;
+          }
+        }
+
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+          $uibModalInstance.dismiss('cancel');
         }
 
         function save() {
-            $uibModalInstance.close($scope.config);
+          $uibModalInstance.close($scope.config);
         }
     }
 })();

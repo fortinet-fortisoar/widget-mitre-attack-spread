@@ -130,5 +130,5 @@ a.disable-light {
 }
 
 .heatmap {
-  background-color: #D18700;
+  background-image: linear-gradient(#D10000, black);
 }
