@@ -12,7 +12,7 @@
 
 /* table header for tactics (outermost table) */
 .mitre-tactics {
-  text-align: center;
+  text-align: left;
   color: white;
 }
 
@@ -23,7 +23,7 @@
 
 /* widens tactics container */
 .div-style {
-  width: 150px;
+  width: 200px;
 }
 
 /* paints the grey line below tactics row */
@@ -49,7 +49,7 @@ thead tr:last-of-type{
   padding: 12px;
   text-align: left;
   color: white;
-  font-size: 11px;
+  font-size: 12px;
   vertical-align: top;
 }
 
@@ -57,7 +57,7 @@ thead tr:last-of-type{
   padding: 12px;
   text-align: left;
   color: black;
-  font-size: 11px;
+  font-size: 12px;
   vertical-align: top;
 }
 
@@ -70,7 +70,8 @@ thead tr:last-of-type{
 
 /* techniques cells */
 .mitre-techniques-cells {
-  border: 2px solid #0D1217;
+  border: 1.5px solid #808080;
+  background-color: #0D1218;
 }
 
 /* font styling for counters on techniques */
@@ -79,14 +80,25 @@ thead tr:last-of-type{
 }
 
 /* table for subtechniques (currently wraps alerts and incidents as well) */
-.mitre-subtechniques-table {
+/* .mitre-subtechniques-table {
   border: 2px solid #04AAB1;
+} */
+
+.mitre-relationships-cells {
+  font-size: 11px;
+  border-top: 1px solid #808080;
 }
 
 /* controls hover behavior for individual 
    subtechnique/alert/incident cells under techniques */
 .mitre-relationships-cells:hover {
   background-color: #323A47;
+}
+
+.mitre-relationships-cells-child {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  border-top: 1px solid #808080;
 }
 
 /* contorls hover behavior for individual
@@ -130,5 +142,5 @@ a.disable-light {
 }
 
 .heatmap {
-  background-image: linear-gradient(#D10000, black);
+  background-image: linear-gradient(#A30000, black);
 }

@@ -54,6 +54,7 @@
     init();
 
     function init() {
+      // change widget colors based on the active theme
       if ($scope.currentUser) {
         $scope.currentTheme = $scope.currentUser['@settings'].user.view.theme;
       }
@@ -80,9 +81,10 @@
         angular.forEach(tacticsCollection.fieldRows, function(tactic) {
           tactic._mitreId = tactic.mitreId.value;
         });
-        $scope.tacticsRecords = _.sortBy(tacticsCollection.fieldRows, '_mitreId');
+        $scope.tacticsRecords = _.sortBy(tacticsCollection.fieldRows, '_mitreId'); // sort tactics based on their mitre id
         $scope.tacticsRecords._total_hidden = 0;
-        $scope.tacticsRecords._toggled = $scope.config.hideTactics || $scope.config.hideParentTactics;
+        $scope.tacticsRecords._toggled = $scope.config.hideTactics || $scope.config.hideParentTactics; // hide tactics if the filter is toggled on
+
         $scope.processing = false;
         $scope.getRelationshipsCount();
       }, angular.noop).finally(function () {
@@ -124,6 +126,7 @@
         tactic_record._hide_techniques = false; // keeps track of the hide techniques toggle for every tactic
         tactic_record._hidden_techniques_count = 0; // how many techniques should be hidden per tactic
 
+        // show/hide tactic based on alert or incident relationship in detail view
         if ($scope.detail_display && $scope.related_tactics.length != 0) {
           if (!$scope.related_tactics.includes(tactic_record['@id'].value)) {
             tactic_record._toggled_detail = true;
@@ -151,6 +154,7 @@
                 }
               }
 
+              // filter techniques by groups if the groups filter is active
               if ($scope.config.selectedGroups != undefined && $scope.config.selectedGroups.length != 0) {
                 $scope.config.previousGroups = $scope.config.selectedGroups;
                 technique._hide_by_group = false;
@@ -176,7 +180,7 @@
     }
 
     function getSubtechniqueRelationshipsCount(technique) {
-      technique._show_subtechniques_coverage = false;
+      technique._show_subtechniques_coverage = false; // flag required for the coverage filter
       
       var query_body = {
         module: $scope.techniques.module,
@@ -229,9 +233,13 @@
         // show relationships
         technique['_show_' + module_name] = true;
         if ($scope.config.enableCoverage) {
-          technique._show_subtechniques = false;
+          // we need to switch this flag off when coverage filter is on
+          // since the _show_subtechniques_coverage flag will take care of it
+          technique._show_subtechniques = false; 
         }
         if (clicked) {
+          // however if the subtechniques link is clicked by the user to toggle relationships
+          // we need to switch the back on for techniques that aren't marked by the coverage filter
           technique['_show_' + module_name] = true;
         }
       }
@@ -354,7 +362,10 @@
       angular.forEach($scope.severity, function(severity) {
         if (record.severity == severity['@id']) {
           severity_value = severity.itemValue;
-          color_value = {color: severity.color};
+          color_value = {
+            'background-color': severity.color,
+            'padding': '2px'
+          };
         }
       });
       return [severity_value, color_value];

@@ -30,7 +30,7 @@
         <table class="mitre-table">
           <thead data-ng-class="currentTheme == 'light' ? 'mitre-tactics-light' : 'mitre-tactics'">
             <tr>
-              <td class="mitre-techniques-count padding-sm"
+              <td class="mitre-techniques-count padding-top-sm padding-left-sm padding-right-sm"
                   data-ng-repeat="tactic in tacticsRecords"
                   data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">{{ tactic.techniques.value.length }} 
                   {{ tactic.techniques.value.length === 1 ? 'technique' : 'techniques' }} 
@@ -41,7 +41,7 @@
               </td>
             </tr>
             <tr>
-              <td class="mitre-tactics-cells padding-sm" data-ng-repeat="tactic in tacticsRecords"
+              <td class="mitre-tactics-cells padding-bottom-sm padding-left-sm padding-right-sm" data-ng-repeat="tactic in tacticsRecords"
                   data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
                 <div class="div-style">
                   <a href="" data-ng-click="openRecord(tactics.module, tactic['@id'].value)"
@@ -57,7 +57,8 @@
               <td class="padding-sm" data-ng-repeat="tactic in tacticsRecords" data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
                 <table class="inner-mitre-table" width="100%">
                   <tr data-ng-repeat="technique in tactic.techniques.value">
-                    <td data-ng-class="technique._show_subtechniques_coverage ? 'heatmap mitre-techniques-cells padding-sm' : 'mitre-techniques-cells padding-sm'" data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
+                    <td data-ng-class="technique._show_subtechniques_coverage || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) ? 'heatmap mitre-techniques-cells padding-sm' : 'mitre-techniques-cells padding-sm'" 
+                        data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
                         data-ng-click="openRecord(techniques.module, technique['@id'])">
                       <div class="bold">{{ technique.name }}</div>
                       <div class="counter-font">{{ technique.mitreId }} | 
@@ -79,7 +80,8 @@
                             <td class="mitre-relationships-cells padding-bottom-sm"
                                 data-ng-click="openRecord(subtechniques.module, subtechnique['@id']); $event.stopPropagation();"
                                 data-tooltip-placement="top" data-uib-tooltip="{{subtechnique.mitreId}}" data-tooltip-append-to-body="true">
-                              <div class="padding-sm">{{ subtechnique.name }}</div>
+                              <div class="padding-top-sm padding-left-sm padding-right-sm">{{ subtechnique.name }}</div>
+                              <div class="padding-bottom-sm padding-left-sm padding-right-sm counter-font">{{ subtechnique.mitreId }}</div>
                               <br>
                               <div class="counter-font padding-right-sm padding-left-sm">
                                 <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._alertCount == 0} : {'disable': subtechnique._alertCount == 0}" href=""
