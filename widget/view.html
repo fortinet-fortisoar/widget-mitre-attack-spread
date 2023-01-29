@@ -62,7 +62,7 @@
                       <div class="bold">{{ technique.name }}</div>
                       <div class="counter-font">{{ technique.mitreId }} | 
                         <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._subtechniqueCount == 0} : {'disable': technique._subtechniqueCount == 0}" href=""
-                           data-ng-click="toggleShowRelationships(technique, 'subtechniques'); $event.stopPropagation();">Subtechniques: {{ technique._subtechniqueCount }}</a>
+                           data-ng-click="toggleShowRelationships(technique, 'subtechniques', true); $event.stopPropagation();">Subtechniques: {{ technique._subtechniqueCount }}</a>
                       </div>
                       <br>
                       <!-- <div class="counter-font">

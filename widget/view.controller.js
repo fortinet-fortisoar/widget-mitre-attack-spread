@@ -160,13 +160,13 @@
               // load all relationships immediately if it's being enforced by edit filters
               if ($scope.config.displayTechniques || $scope.config.enableCoverage) {
                 if (countObject.techniques > 0) {
-                  toggleShowRelationships(technique, 'subtechniques');
+                  toggleShowRelationships(technique, 'subtechniques', false);
                 }
                 if (countObject.alerts > 0) {
-                  toggleShowRelationships(technique, 'alerts');
+                  toggleShowRelationships(technique, 'alerts', false);
                 }
                 if (countObject.incidents > 0) {
-                  toggleShowRelationships(technique, 'incidents');
+                  toggleShowRelationships(technique, 'incidents', false);
                 }
               }
             }
@@ -224,12 +224,15 @@
       });
     }
 
-    function toggleShowRelationships(technique, module_name) {
+    function toggleShowRelationships(technique, module_name, clicked) {
       if (technique['_show_' + module_name] === undefined || technique['_show_' + module_name] === false) {
         // show relationships
         technique['_show_' + module_name] = true;
         if ($scope.config.enableCoverage) {
           technique._show_subtechniques = false;
+        }
+        if (clicked) {
+          technique['_show_' + module_name] = true;
         }
       }
       else if (technique['_show_' + module_name] === true) {
