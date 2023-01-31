@@ -37,6 +37,7 @@
     $scope.detail_not_found = false;
     $scope.related_tactics = [];
     $scope.showInDetailView = showInDetailView;
+    $scope._showInDetailView = _showInDetailView;
     $scope.findRelatedTactics = findRelatedTactics;
     $scope.loadGroupRelationships = loadGroupRelationships;
     $scope.currentUser = usersService.getCurrentUser();
@@ -63,6 +64,8 @@
         // enforce the technique and subtechnique toggles to expand as it's needed to see linked alerts/incidents
         $scope.config.displayTechniques = true;
         $scope.config.displaySubtechniques = true;
+        // enforce the coverage filter toggle to make techniques more visible
+        $scope.config.enableCoverage = true;
 
         $scope.record_module = $state.params.module;
         $scope.record_uuid = $state.params.id;
@@ -229,21 +232,21 @@
     }
 
     function toggleShowRelationships(technique, module_name, clicked) {
-      if (technique['_show_' + module_name] === undefined || technique['_show_' + module_name] === false) {
+      if (technique['_show_' + module_name] === undefined || !technique['_show_' + module_name]) {
         // show relationships
         technique['_show_' + module_name] = true;
         if ($scope.config.enableCoverage) {
           // we need to switch this flag off when coverage filter is on
           // since the _show_subtechniques_coverage flag will take care of it
-          technique._show_subtechniques = false; 
+          technique._show_subtechniques = false;
         }
         if (clicked) {
           // however if the subtechniques link is clicked by the user to toggle relationships
-          // we need to switch the back on for techniques that aren't marked by the coverage filter
+          // we need to switch it back on for techniques that aren't marked by the coverage filter
           technique['_show_' + module_name] = true;
         }
       }
-      else if (technique['_show_' + module_name] === true) {
+      else if (technique['_show_' + module_name]) {
         // hide relationships
         technique['_show_' + module_name] = false;
         technique['_' + module_name + '_processing'] = false;
@@ -255,8 +258,7 @@
           module: $scope.techniques.module,
           id: technique.uuid,
           $limit: $scope.techniques.query.limit,
-          $relationships: true,
-          __selectFields: 'name,mitreId,techniques'
+          $relationships: true
         }).$promise.then(function (result){
           // attempt to load all relationships to stop a new API request 
           // from being made with each click on different related module
@@ -272,7 +274,7 @@
           }
           if ($scope.detail_display && $scope.record_relationships.length != 0) {
             angular.forEach($scope.record_relationships, function(relationship) {
-              if (relationship == technique['@id']) {
+              if (relationship['@id'] == technique['@id']) {
                 technique._hide_in_detail_view = false;
               }
             });
@@ -289,11 +291,11 @@
     }
 
     function toggleShowSubtechniqueRelationships(subtechnique, module_name) {
-      if (subtechnique['_show_' + module_name] === undefined || subtechnique['_show_' + module_name] === false) {
+      if (subtechnique['_show_' + module_name] === undefined || !subtechnique['_show_' + module_name]) {
         // show relationships
         subtechnique['_show_' + module_name] = true;
       }
-      else if (subtechnique['_show_' + module_name] === true) {
+      else if (subtechnique['_show_' + module_name]) {
         // hide relationships
         subtechnique['_show_' + module_name] = false;
         subtechnique['_' + module_name + '_processing'] = false;
@@ -305,8 +307,7 @@
           module: $scope.subtechniques.module,
           id: subtechnique.uuid,
           $limit: $scope.subtechniques.query.limit,
-          $relationships: true,
-          __selectFields: 'name,mitreId,alerts,incidents'
+          $relationships: true
         }).$promise.then(function (result){
           // attempt to load all relationships to stop a new API request 
           // from being made with each click on different related module
@@ -386,54 +387,22 @@
       // check alert/incident for any related technique/subtechnique
       // to determine what needs to be shown in detail view
       if ($scope.record_module == 'alerts') {
-        Modules.get({
+        var query_alerts = {
           module: $scope.alerts.module,
-          id: $scope.record_uuid,
-          $limit: $scope.alerts.query.limit,
-          $relationships: true,
-          __selectFields: 'mitre_techniques,mitre_sub_techniques'
-        }).$promise.then(function (result) {
-          if (result.mitre_techniques.length != 0) {
-            var techniques_array = [];
-            angular.forEach(result.mitre_techniques, function(technique) {
-              techniques_array.push(technique['@id']);
-            });
-            $scope.record_relationships = techniques_array;
-          }
-          else if (result.mitre_sub_techniques != 0) {
-            var subtechniques_array = [];
-            angular.forEach(result.mitre_sub_techniques, function(subtechnique) {
-              subtechniques_array.push(subtechnique.parentTechnique);
-            });
-            $scope.record_relationships = subtechniques_array;
-          }
-          $scope.findRelatedTactics();
-        });
+          limit: ALL_RECORDS_SIZE,
+          logic: 'AND',
+          filters: []
+        };
+        $scope._showInDetailView(query_alerts);
       }
       else if ($scope.record_module == 'incidents') {
-        Modules.get({
+        var query_incidents = {
           module: $scope.incidents.module,
-          id: $scope.record_uuid,
-          $limit: $scope.incidents.query.limit,
-          $relationships: true,
-          __selectFields: 'mitre_techniques,mitre_sub_techniques'
-        }).$promise.then(function (result) {
-          if (result.mitre_techniques.length != 0) {
-            var techniques_array = [];
-            angular.forEach(result.mitre_techniques, function(technique) {
-              techniques_array.push(technique['@id']);
-            });
-            $scope.record_relationships = techniques_array;
-          }
-          else if (result.mitre_sub_techniques != 0) {
-            var subtechniques_array = [];
-            angular.forEach(result.mitre_sub_techniques, function(subtechnique) {
-              subtechniques_array.push(subtechnique.parentTechnique);
-            });
-            $scope.record_relationships = subtechniques_array;
-          }
-          $scope.findRelatedTactics();
-        });
+          limit: ALL_RECORDS_SIZE,
+          logic: 'AND',
+          filters: []
+        };
+        $scope._showInDetailView(query_incidents);
       }
     }
 
@@ -442,20 +411,46 @@
         $scope.detail_not_found = true;
       }
       else {
-        angular.forEach($scope.record_relationships, function(technique_id) {
-          Modules.get({
-            module: $scope.techniques.module,
-            id: technique_id.split('/')[4],
-            $limit: $scope.techniques.query.limit,
-            $relationships: true,
-            __selectFields: 'tactics'
-          }).$promise.then(function (result) {
-            angular.forEach(result.tactics, function(tactic) {
+        var query_techniques = {
+          module: $scope.techniques.module,
+          limit: ALL_RECORDS_SIZE,
+          logic: 'AND',
+          filters: []
+        };
+        angular.forEach($scope.record_relationships, function(technique) {
+          $resource(API.QUERY + query_techniques.module + '/' + technique.uuid + '/tactics').save(query_techniques).$promise.then(function (response) {
+            angular.forEach(response['hydra:member'], function(tactic) {
               $scope.related_tactics.push(tactic['@id']);
             });
           });
         });
       }
+    }
+
+    function _showInDetailView(query_body) {
+      $resource(API.QUERY + query_body.module + '/' + $scope.record_uuid + '/mitre_techniques').save(query_body).$promise.then(function (response) {
+        if (response['hydra:member'].length != 0) {
+          var techniques_array = [];
+          angular.forEach(response['hydra:member'], function(technique) {
+            technique._show_subtechniques_coverage = true;
+            techniques_array.push(technique);
+          });
+          $scope.record_relationships = techniques_array;
+          $scope.findRelatedTactics();
+        }
+        else {
+          $resource(API.QUERY + query_body.module + '/' + $scope.record_uuid + '/mitre_sub_techniques').save(query_body).$promise.then(function (response) {
+            if (response['hydra:member'].length != 0) {
+              var subtechniques_array = [];
+              angular.forEach(response['hydra:member'], function(subtechnique) {
+                subtechniques_array.push(subtechnique.parentTechnique);
+              });
+              $scope.record_relationships = subtechniques_array;
+              $scope.findRelatedTactics();
+            }
+          });
+        }
+      });
     }
 
     function loadGroupRelationships(technique, tactic_record) {

@@ -12,7 +12,6 @@
         $scope.config = config;
 
         $scope.toggleDisabled = false;
-        $scope.toggleHideCoverage = false;
 
         $scope.toggleTechniques = toggleTechniques;
         $scope.toggleSubtechniques = toggleSubtechniques;
@@ -74,7 +73,6 @@
           
           if ($state.params.page.includes('detail')) {
             $scope.toggleDisabled = true;
-            $scope.toggleHideCoverage = true;
           }
         }
 

@@ -10,19 +10,21 @@
       <label for="title" class="control-label">Widget Title</label>
       <input id="title" name="title" type="text" class="form-control" placeholder="MITRE ATT&CK Alert/Incident Spread" data-ng-model="config.title">
     </div>
-    <div class="form-group" data-ng-hide="toggleHideCoverage">
-      <span class="custom-toggle-btn pull-left">
+    <div class="form-group">
+      <span data-ng-class="toggleDisabled ? 'custom-toggle-btn pull-left disabled': 'custom-toggle-btn pull-left'">
         <span class="custom-toggle-btn-status margin-top-md font-size-12 text-left">Show Alert and Incident Coverage</span>
-        <span data-uib-tooltip="Enabling this filter will highlight and expand all Techniques and Subtechniques with linked Alerts/Incidents" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
+        <span data-ng-hide="toggleDisabled" data-uib-tooltip="Enabling this filter will highlight and expand all Techniques and Subtechniques with linked Alerts/Incidents" data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
         <span class="custom-toggle-btn-wrapper edit-toggles pull-right">
           <span class="custom-toggle-switch-base" data-ng-class="config.enableCoverage ? 'custom-toggle-active': 'custom-toggle-inactive'">
-            <input type="checkbox" class="custom-toggle-input" data-ng-click="enableCoverage();">
+            <input type="checkbox" class="custom-toggle-input" data-ng-click="enableCoverage();" data-ng-disabled="toggleDisabled">
             <span class="custom-toggle-handle"></span>
             <span class="custom-toggle-root"></span>
           </span>
           <span class="custom-toggle-track"></span>
         </span>
       </span>
+      <span data-ng-show="toggleDisabled" data-uib-tooltip="This toggle is enabled by default in record detail view to highlight Techniques linked with the Alert/Incident in view" 
+            data-tooltip-append-to-body="true"><i class="icon icon-information font-size-12"></i></span>
     </div>
     <!-- <div class="form-group">
       <span class="custom-toggle-btn pull-left">
