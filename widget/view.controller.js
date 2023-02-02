@@ -5,12 +5,11 @@
     .controller('mitreAttackSpread100Ctrl', mitreAttackSpread100Ctrl);
 
   mitreAttackSpread100Ctrl.$inject = ['$scope', 'config', 'appModulesService', 'currentPermissionsService', 'usersService',
-    '$state', '$filter', 'PagedCollection', 'Query', 'Modules', 'ALL_RECORDS_SIZE', 'API', '$resource',
-    '_'
+    '$state', '$filter', 'Modules', 'ALL_RECORDS_SIZE', 'API', '$resource', '_'
   ];
 
   function mitreAttackSpread100Ctrl($scope, config, appModulesService, currentPermissionsService, usersService,
-    $state, $filter, PagedCollection, Query, Modules, ALL_RECORDS_SIZE, API, $resource, _) {
+    $state, $filter, Modules, ALL_RECORDS_SIZE, API, $resource, _) {
 
     $scope.tactics = {"module": "mitre_tactics",
                       "query": {"__selectFields": ["name", "mitreId", "techniques"],
@@ -78,16 +77,10 @@
 
     function getTactics() {
       $scope.processing = true;
-      var tacticsCollection = new PagedCollection($scope.tactics.module, null, {"$limit": $scope.tactics.query.limit});
-      tacticsCollection.query = new Query($scope.tactics.query);
-      tacticsCollection.loadGridRecord().then(function() {
-        angular.forEach(tacticsCollection.fieldRows, function(tactic) {
-          tactic._mitreId = tactic.mitreId.value;
-        });
-        $scope.tacticsRecords = _.sortBy(tacticsCollection.fieldRows, '_mitreId'); // sort tactics based on their mitre id
+      $resource(API.QUERY + $scope.tactics.module).save($scope.tactics.query).$promise.then(function (response) {
+        $scope.tacticsRecords = _.sortBy(response['hydra:member'], 'mitreId'); // sort tactics based on their mitre id
         $scope.tacticsRecords._total_hidden = 0;
         $scope.tacticsRecords._toggled = $scope.config.hideTactics || $scope.config.hideParentTactics; // hide tactics if the filter is toggled on
-
         $scope.processing = false;
         $scope.getRelationshipsCount();
       }, angular.noop).finally(function () {
@@ -131,13 +124,13 @@
 
         // show/hide tactic based on alert or incident relationship in detail view
         if ($scope.detail_display && $scope.related_tactics.length != 0) {
-          if (!$scope.related_tactics.includes(tactic_record['@id'].value)) {
+          if (!$scope.related_tactics.includes(tactic_record['@id'])) {
             tactic_record._toggled_detail = true;
           }
         }
         
-        $resource(API.QUERY + query_body.module + '/' + tactic_record.uuid.value + '/techniques').save(query_body).$promise.then(function (response) {
-          angular.forEach(tactic_record.techniques.value, function(technique) {
+        $resource(API.QUERY + query_body.module + '/' + tactic_record.uuid + '/techniques').save(query_body).$promise.then(function (response) {
+          angular.forEach(tactic_record.techniques, function(technique) {
             var countObject = _.find(response['hydra:member'], {uuid: technique.uuid});
             if (countObject) {
               technique._subtechniqueCount = countObject.techniques;
@@ -266,6 +259,22 @@
           technique._alerts = result.alerts;
           technique._incidents = result.incidents;
           technique['_' + module_name + '_processing'] = false;
+          
+          // assign severity to alerts/incidents
+          if (technique._alerts.length != 0) {
+            angular.forEach(technique._alerts, function(alert) {
+              var alert_severity_array = getSeverity(alert);
+              alert._severity_value = alert_severity_array[0];
+              alert._severity_color = alert_severity_array[1];
+            });
+          }
+          if (technique._incidents.length != 0) {
+            angular.forEach(technique._incidents, function(incident) {
+              var incident_severity_array = getSeverity(incident);
+              incident._severity_value = incident_severity_array[0];
+              incident._severity_color = incident_severity_array[1];
+            });
+          }
 
           // determine which techniques/subtechniques to view 
           // based on alert/incident relationships in detail view
@@ -314,6 +323,22 @@
           subtechnique._alerts = result.alerts;
           subtechnique._incidents = result.incidents;
           subtechnique['_' + module_name + '_processing'] = false;
+
+          // assign severity to alert/incidents
+          if (subtechnique._alerts.length != 0) {
+            angular.forEach(subtechnique._alerts, function(alert) {
+              var alert_severity_array = getSeverity(alert);
+              alert._severity_value = alert_severity_array[0];
+              alert._severity_color = alert_severity_array[1];
+            });
+          }
+          if (subtechnique._incidents.length != 0) {
+            angular.forEach(subtechnique._incidents, function(incident) {
+              var incident_severity_array = getSeverity(incident);
+              incident._severity_value = incident_severity_array[0];
+              incident._severity_color = incident_severity_array[1];
+            });
+          }
         });
       }
     }
@@ -321,13 +346,13 @@
     function toggleHiddenTechniques(tactic) {
       tactic._hide_techniques = !tactic._hide_techniques;
       if (!tactic._hide_techniques) {
-        angular.forEach(tactic.techniques.value, function(technique) {
+        angular.forEach(tactic.techniques, function(technique) {
           technique._hide = false;
           technique._hide_by_group = false;
         });
       }
       else {
-        angular.forEach(tactic.techniques.value, function(technique) {
+        angular.forEach(tactic.techniques, function(technique) {
           if (technique._subtechniqueCount == 0 && technique._alertCount == 0 && technique._incidentCount == 0) {
             technique._hide = true;
           }
@@ -342,7 +367,7 @@
       // we should only toggle already hidden ones so we need an extra flag to keep track
       $scope.tacticsRecords._toggled = !$scope.tacticsRecords._toggled;
       angular.forEach($scope.tacticsRecords, function(tactic) {
-        if (tactic._hidden_techniques_count == tactic.techniques.value.length) {
+        if (tactic._hidden_techniques_count == tactic.techniques.length) {
           tactic._toggled = !tactic._toggled;
         }
       });
