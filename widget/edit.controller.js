@@ -4,9 +4,9 @@
         .module('cybersponse')
         .controller('editMitreAttackSpread100Ctrl', editMitreAttackSpread100Ctrl);
 
-    editMitreAttackSpread100Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'PagedCollection', 'Query', 'ALL_RECORDS_SIZE', '$state'];
+    editMitreAttackSpread100Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API'];
 
-    function editMitreAttackSpread100Ctrl($scope, $uibModalInstance, config, PagedCollection, Query, ALL_RECORDS_SIZE, $state) {
+    function editMitreAttackSpread100Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API) {
         $scope.cancel = cancel;
         $scope.save = save;
         $scope.config = config;
@@ -27,8 +27,12 @@
 
         $scope.enableCoverage = enableCoverage;
 
-        $scope.groups = {"module": "mitre_groups",
-                         "query": {"limit": ALL_RECORDS_SIZE}};
+        $scope.groups = {"module": "mitre_groups", "query": {"__selectFields": ["name", "mitreId", "techniques"], 
+                                                            "sort": [
+                                                              {
+                                                                "field": "name",
+                                                                "direction": "asc"
+                                                              }]}};
 
         init();
 
@@ -60,15 +64,11 @@
           if ($scope.config.toggleDisabledExpand == undefined) {
             $scope.config.toggleDisabledExpand = false;
           }
-
-          if ($scope.config.previousGroups && $scope.config.filterGroups) {
+          if ($scope.config.previousGroups.length != 0 && $scope.config.filterGroups) {
             $scope.config.selectedGroups = $scope.config.previousGroups;
           }
           else {
             $scope.config.selectedGroups = [];
-          }
-          if ($scope.config.filterGroups && $scope.config.groupsRecords == undefined) {
-            loadGroups();
           }
           
           if ($state.params.page.includes('detail')) {
@@ -103,25 +103,23 @@
 
         function filterGroups() {
           $scope.config.filterGroups = !$scope.config.filterGroups;
-          if ($scope.config.filterGroups && $scope.config.groupsRecords == undefined) {
+          if ($scope.config.filterGroups) {
             loadGroups();
           }
-          if (!$scope.config.filterGroups) {
+          else {
             $scope.config.selectedGroups = [];
+            $scope.config.previousGroups = [];
           }
         }
 
         function loadGroups() {
           $scope.processing = true;
-          var groupsCollection = new PagedCollection($scope.groups.module, null, {"$limit": $scope.groups.query.limit});
-          groupsCollection.query = new Query($scope.groups.query);
-          groupsCollection.loadGridRecord().then(function () {
-            $scope.config.groupsRecords = groupsCollection.fieldRows;
+          $resource(API.QUERY + $scope.groups.module + '?$limit=' + ALL_RECORDS_SIZE + '&$export=true').save($scope.groups.query).$promise.then(function (response) {
+            $scope.config.groupsRecords = response['hydra:member'];
             $scope.processing = false;
           }, angular.noop).finally(function () {
             $scope.processing = false;
           });
-
         }
 
         function enableHeatmap() {

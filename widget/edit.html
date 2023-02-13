@@ -134,7 +134,7 @@
         <label for="groups" class="control-label">Groups To Filter With</label>
         <select multiple name="groups" class="form-control" data-ng-model="config.selectedGroups">
           <option>Select</option>
-          <option data-ng-repeat="group in config.groupsRecords | orderBy:'name.value'" data-ng-value="group.uuid.value">{{ group.name.value }} ({{ group.mitreId.value }})</option>
+          <option data-ng-repeat="group in config.groupsRecords">{{ group.name }} ({{ group.mitreId }})</option>
         </select>
       </div>
     </div>
