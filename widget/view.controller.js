@@ -164,7 +164,7 @@
                                 "filters": [{"field": "uuid", "value": $scope.record_uuid, "operator": "eq"}]}};
           detail_record_call = $resource(API.QUERY + incident_query.module + '?$export=true').save(incident_query.query).$promise.then(function (response) {
             $scope.incident_detail = response['hydra:member'][0]; // this will always be only one record
-            return $scope.incident_detail
+            return $scope.incident_detail;
           });
         }
       }
