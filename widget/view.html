@@ -16,7 +16,7 @@
         data-ng-class="{'fa-caret-up': !collapsed, 'fa-caret-down': collapsed}"></span>
     </div>
   </div>
-  <div data-ng-hide="collapsed || (detail_not_found && detail_display)">
+  <div data-ng-hide="collapsed || (detail_not_found && detail_display) || hide_all">
     <div class="padding-left-lg padding-bottom-xlg overflow-hidden">
       <div data-ng-if="!processing && (tacticsRecords.length > 0)">
         <table class="mitre-table">
@@ -199,7 +199,7 @@
       MITRE ATT&CK records. If you would like see this widget in its full extent, try adding it as a dashboard widget.
     </h4>
   </div>
-  <div data-ng-show="record_module == 'alerts'">
+  <div data-ng-show="hide_all">
     <h4 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">Only Incidents are viewable in the
       widget when enabled within the detail record view.</h4>
   </div>

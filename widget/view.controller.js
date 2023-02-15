@@ -162,6 +162,7 @@
     $scope.currentUser = usersService.getCurrentUser();
     $scope.currentTheme = 'dark';
     $scope.globalRefresh = globalRefresh;
+    $scope.hide_all = false;
 
     if (!$scope.tacticsPermissions.read || !$scope.techniquesPermissions.read || !$scope.subtechniquesPermissions.read) {
       $scope.unauthorized = true;
@@ -191,6 +192,10 @@
         $scope.config.displaySubtechniques = true;
         // enforce the coverage filter toggle to make techniques more visible
         $scope.config.enableCoverage = true;
+        // only incidents can be viewed in detail view
+        if ($state.params.module != 'incidents') {
+          $scope.hide_all = true;
+        }
       }
       $scope.getTactics();
     }
