@@ -4,9 +4,9 @@
     .module('cybersponse')
     .controller('editMitreAttackSpread100Ctrl', editMitreAttackSpread100Ctrl);
 
-  editMitreAttackSpread100Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API'];
+  editMitreAttackSpread100Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
 
-  function editMitreAttackSpread100Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API) {
+  function editMitreAttackSpread100Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
@@ -26,6 +26,8 @@
     $scope.enableHeatmap = enableHeatmap;
 
     $scope.enableCoverage = enableCoverage;
+
+    $scope.populateCondition = populateCondition;
 
     $scope.groups = {
       "module": "mitre_groups", "query": {
@@ -78,6 +80,8 @@
       if ($state.params.page.includes('detail')) {
         $scope.toggleDisabled = true;
       }
+
+      $scope.populateCondition();
     }
 
     function toggleTechniques() {
@@ -137,6 +141,17 @@
         $scope.config.displayTechniques = false;
         $scope.config.displaySubtechniques = false;
       }
+    }
+
+    function populateCondition() {
+      var alerts_entity = new Entity('alerts');
+      alerts_entity.loadFields().then(function () {
+        $scope.alerts_fields = alerts_entity.fields;
+      });
+      var incidents_entity = new Entity('incidents');
+      incidents_entity.loadFields().then(function () {
+        $scope.incidents_fields = incidents_entity.fields;
+      });
     }
 
     function cancel() {
