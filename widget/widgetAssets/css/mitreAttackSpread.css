@@ -74,6 +74,11 @@ thead tr:last-of-type {
   background-color: #0D1218;
 }
 
+.mitre-techniques-cells-light {
+  border: 1.5px solid #808080;
+  background-color: white;
+}
+
 /* font styling for counters on techniques */
 .counter-font {
   font-size: 9px;
