@@ -1,113 +1,123 @@
 <link rel="stylesheet" type="text/css" href="mitretest-1.0.0/widgetAssets/css/mitretest.css" />
 <div class="widget widget-container chart">
   <div class="display-flex-space-between margin-chart">
-    <div class="padding-right-0 padding-left-0 widget-dashboard-title-width" data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-title-width' : 'widget-title-width'">
-      <h5 class="margin-top-0 margin-bottom-0 text-overflow ng-binding">{{ config.title ? config.title : 'MITRE ATT&CK Alert/Incident Spread' }}</h5>
+    <div class="padding-right-0 padding-left-0 widget-dashboard-title-width"
+      data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-title-width' : 'widget-title-width'">
+      <h5 class="margin-top-0 margin-bottom-0 text-overflow ng-binding">{{ config.title ? config.title : 'MITRE ATT&CK
+        Alert/Incident Spread' }}</h5>
     </div>
-    <div class="padding-right-0 padding-left-0" data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-actions-width' : 'widget-actions-width'">
-      <span class="fa btn widget-action-icon btn-sm pull-right" data-ng-click="collapsed = !collapsed" data-ng-class="{'fa-caret-up': !collapsed, 'fa-caret-down': collapsed}"></span>
+    <div class="padding-left-0 margin-top-8 padding-top-5 pull-left" data-ng-show="detail_display">
+      <span class="fa btn btn-sm" data-ng-class="{'hover':isOpen}" data-ng-click="globalRefresh()" role="button"
+        tabindex="0"><i class="icon icon-refresh"></i></span>
+    </div>
+    <div class="padding-right-0"
+      data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-actions-width' : ''">
+      <span class="fa btn widget-action-icon btn-sm pull-right" data-ng-click="collapsed = !collapsed"
+        data-ng-class="{'fa-caret-up': !collapsed, 'fa-caret-down': collapsed}"></span>
     </div>
   </div>
-  <div data-ng-hide="collapsed || (detail_not_found && detail_display)">
+  <div data-ng-hide="collapsed || (detail_not_found && detail_display) || hide_all">
     <div class="padding-left-lg padding-bottom-xlg overflow-hidden">
-      <div class="row" data-ng-hide="unauthorized || processing || detail_display">
-        <div class="col-md-6">
-          <div class="padding-right-lg">
-            <div class="padding-left-sm pull-left" data-ng-show="config.hideTactics || config.hideParentTactics">
-              <!-- <span class="font-size-12">Showing {{ tacticsRecords.length - tacticsRecords._total_hidden }} Tactics</span> -->
-              <a class="font-size-12" href="" data-ng-click="toggleHiddenTactics()"
-                 data-tooltip-placement="top" data-uib-tooltip="Empty Tactics are being hidden by filter settings"
-                 data-tooltip-append-to-body="true"> {{ tacticsRecords._toggled ? 'Show Hidden' : 'Hide Empty' }} Tactics</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
       <div data-ng-if="!processing && (tacticsRecords.length > 0)">
         <table class="mitre-table">
-          <thead class="mitre-tactics">
+          <thead data-ng-class="currentTheme == 'light' ? 'mitre-tactics-light' : 'mitre-tactics'">
             <tr>
-              <td class="mitre-tactics-cells padding-sm" data-ng-repeat="tactic in tacticsRecords"
-                  data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
-                <div class="div-style">
-                  <a href="" data-ng-click="openRecord(tactics.module, tactic['@id'].value)"
-                     data-tooltip-placement="top"
-                     data-uib-tooltip="{{tactic.mitreId.value}}"
-                     data-tooltip-append-to-body="true">{{ tactic.name.value }}</a>
-                </div>
+              <td class="mitre-techniques-count padding-top-sm padding-left-sm padding-right-sm"
+                data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
+                {{ tactic.techniques.length }}
+                {{ tactic.techniques.length === 1 ? 'technique' : 'techniques' }}
               </td>
             </tr>
             <tr>
-              <td class="mitre-techniques-count padding-sm"
-                  data-ng-repeat="tactic in tacticsRecords"
-                  data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">{{ tactic.techniques.value.length }} 
-                  {{ tactic.techniques.value.length === 1 ? 'technique' : 'techniques' }} 
-                  <a href="" data-ng-click="toggleHiddenTechniques(tactic);"
-                  data-tooltip-placement="top"
-                  data-uib-tooltip="Empty Techniques are being hidden by filter settings"
-                  data-tooltip-append-to-body="true">{{ tactic._hidden_techniques_count != 0 ? '(' + tactic._hidden_techniques_count + ' hidden)' : '' }}</a></td>
+              <td class="mitre-tactics-cells padding-bottom-sm padding-left-sm padding-right-sm"
+                data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
+                <div class="div-style">
+                  <a href="" data-ng-click="openRecord(tactics.module, tactic['@id'])" data-tooltip-placement="top"
+                    data-uib-tooltip="{{tactic.mitreId}}" data-tooltip-append-to-body="true">{{ tactic.name }}</a>
+                </div>
+              </td>
             </tr>
           </thead>
-          <tbody class="mitre-techniques">
+          <tbody data-ng-class="currentTheme == 'light' ? 'mitre-techniques-light' : 'mitre-techniques'">
             <tr>
-              <td class="padding-sm" data-ng-repeat="tactic in tacticsRecords" data-ng-hide="(tactic.techniques.value.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.value.length && config.hideParentTactics && !tactic._toggled) || tactic._toggled_detail">
+              <td class="padding-sm" data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
                 <table class="inner-mitre-table" width="100%">
-                  <tr data-ng-repeat="technique in tactic.techniques.value">
-                    <td class="mitre-techniques-cells padding-sm" data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
-                        data-ng-click="openRecord(techniques.module, technique['@id'])">
+                  <tr data-ng-repeat="technique in tactic.techniques">
+                    <td
+                      data-ng-class="(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) ? 'heatmap mitre-techniques-cells padding-sm' : 'mitre-techniques-cells padding-sm'"
+                      data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
+                      data-ng-click="openRecord(techniques.module, technique['@id'])">
                       <div class="bold">{{ technique.name }}</div>
-                      <div class="counter-font">{{ technique.mitreId }}</div>
-                      <br>
-                      <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._subtechniqueCount == 0}" href=""
-                           data-ng-click="toggleShowRelationships(technique, 'subtechniques'); $event.stopPropagation();">
-                          Subtechniques: {{ technique._subtechniqueCount }}</a>
+                      <div class="counter-font">{{ technique.mitreId }} |
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._subtechniqueCount == 0} : {'disable': technique._subtechniqueCount == 0}"
+                          href=""
+                          data-ng-click="toggleShowRelationships(technique, 'subtechniques', true); $event.stopPropagation();">Subtechniques:
+                          {{ technique._subtechniqueCount }}</a>
                       </div>
-                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink" data-ng-if="technique._subtechniques_processing">
+                      <br>
+                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink"
+                        data-ng-if="technique._subtechniques_processing">
                         <cs-spinner data-show-background="true"></cs-spinner>
                       </div>
-                      <div class="margin-top-sm" data-ng-show="technique._show_subtechniques">
+                      <div class="margin-top-sm"
+                        data-ng-show="technique._show_subtechniques || technique._show_subtechniques_coverage">
                         <table class="mitre-subtechniques-table" width="100%">
                           <tr data-ng-repeat="subtechnique in technique._subtechniques">
                             <td class="mitre-relationships-cells padding-bottom-sm"
-                                data-ng-click="openRecord(subtechniques.module, subtechnique['@id']); $event.stopPropagation();"
-                                data-tooltip-placement="top" data-uib-tooltip="{{subtechnique.mitreId}}" data-tooltip-append-to-body="true">
-                              <div class="padding-sm">{{ subtechnique.name }}</div>
+                              data-ng-click="openRecord(subtechniques.module, subtechnique.uuid); $event.stopPropagation();"
+                              data-tooltip-placement="top" data-uib-tooltip="{{subtechnique.mitreId}}"
+                              data-tooltip-append-to-body="true">
+                              <div class="padding-top-sm padding-left-sm padding-right-sm">{{ subtechnique.name }}</div>
+                              <div class="padding-bottom-sm padding-left-sm padding-right-sm counter-font">{{
+                                subtechnique.mitreId }}</div>
                               <br>
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="{'disable': subtechnique._alertCount == 0}" href=""
-                                  data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'alerts'); $event.stopPropagation();">
+                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._alertCount == 0} : {'disable': subtechnique._alertCount == 0}"
+                                  href=""
+                                  data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'alerts', true); $event.stopPropagation();">
                                   Alerts: {{ subtechnique._alertCount }}</a>
                               </div>
-                              <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink" data-ng-if="subtechnique._alerts_processing">
+                              <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink"
+                                data-ng-if="subtechnique._alerts_processing">
                                 <cs-spinner data-show-background="true"></cs-spinner>
                               </div>
                               <div class="margin-top-sm" data-ng-show="subtechnique._show_alerts">
                                 <table class="mitre-subtechniques-table alert-incident-table" width="95%">
                                   <tr data-ng-repeat="alert in subtechnique._alerts">
-                                    <td data-ng-class="config.enableHeatmap ? 'mitre-relationships-cells-child padding-sm heatmap' : 'mitre-relationships-cells-child padding-sm'"
-                                        data-ng-click="openRecord(alerts.module, alert['@id']); $event.stopPropagation();">
+                                    <td class="mitre-relationships-cells-child padding-sm"
+                                      data-ng-click="openRecord(alerts.module, alert['@id']); $event.stopPropagation();">
                                       <div class="padding-sm">{{ alert.name }}</div>
-                                      <div class="padding-left-sm counter-font"><span>Severity: </span><span data-ng-style="getSeverity(alert)[1]">{{ getSeverity(alert)[0] }}</span></div><br></td>
+                                      <div class="padding-left-sm counter-font"><span>Severity: </span><span
+                                          data-ng-style="alert._severity_color">{{ alert._severity_value }}</span></div>
+                                      <br>
+                                    </td>
                                   </tr>
                                 </table>
                               </div>
                               <br data-ng-show="subtechnique._show_alerts">
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="{'disable': subtechnique._incidentCount == 0}" href=""
-                                  data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'incidents'); $event.stopPropagation();">
+                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._incidentCount == 0} : {'disable': subtechnique._incidentCount == 0}"
+                                  href=""
+                                  data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'incidents', true); $event.stopPropagation();">
                                   Incidents: {{ subtechnique._incidentCount }}</a>
                               </div>
-                              <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink" data-ng-if="subtechnique._incidents_processing">
+                              <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink"
+                                data-ng-if="subtechnique._incidents_processing">
                                 <cs-spinner data-show-background="true"></cs-spinner>
                               </div>
                               <div class="margin-top-sm" data-ng-show="subtechnique._show_incidents">
                                 <table class="mitre-subtechniques-table alert-incident-table" width="95%">
                                   <tr data-ng-repeat="incident in subtechnique._incidents">
-                                    <td data-ng-class="config.enableHeatmap ? 'mitre-relationships-cells-child padding-sm heatmap' : 'mitre-relationships-cells-child padding-sm'"
-                                        data-ng-click="openRecord(incidents.module, incident['@id']); $event.stopPropagation();">
+                                    <td class="mitre-relationships-cells-child padding-sm"
+                                      data-ng-click="openRecord(incidents.module, incident['@id']); $event.stopPropagation();">
                                       <div class="padding-sm">{{ incident.name }}</div>
-                                      <div class="padding-left-sm counter-font"><span>Severity: </span><span data-ng-style="getSeverity(incident)[1]">{{ getSeverity(incident)[0] }}</span></div><br></td>
+                                      <div class="padding-left-sm counter-font"><span>Severity: </span><span
+                                          data-ng-style="incident._severity_color">{{ incident._severity_value }}</span>
+                                      </div><br>
+                                    </td>
                                   </tr>
                                 </table>
                               </div>
@@ -115,42 +125,51 @@
                           </tr>
                         </table>
                       </div>
-                      <br data-ng-show="technique._show_subtechniques">
+                      <br data-ng-show="technique._show_subtechniques || technique._show_subtechniques_coverage">
                       <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._alertCount == 0}" href=""
-                           data-ng-click="toggleShowRelationships(technique, 'alerts'); $event.stopPropagation();">
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._alertCount == 0} : {'disable': technique._alertCount == 0}"
+                          href=""
+                          data-ng-click="toggleShowRelationships(technique, 'alerts', true); $event.stopPropagation();">
                           Alerts: {{ technique._alertCount }}</a>
                       </div>
-                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink" data-ng-if="technique._alerts_processing">
+                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink"
+                        data-ng-if="technique._alerts_processing">
                         <cs-spinner data-show-background="true"></cs-spinner>
                       </div>
                       <div class="margin-top-sm" data-ng-show="technique._show_alerts">
                         <table class="mitre-subtechniques-table" width="100%">
                           <tr data-ng-repeat="alert in technique._alerts">
-                            <td data-ng-class="config.enableHeatmap ? 'mitre-relationships-cells heatmap' : 'mitre-relationships-cells'"
-                                data-ng-click="openRecord(alerts.module, alert['@id']); $event.stopPropagation();">
+                            <td class="mitre-relationships-cells"
+                              data-ng-click="openRecord(alerts.module, alert['@id']); $event.stopPropagation();">
                               <div class="padding-sm">{{ alert.name }}</div>
-                              <div class="padding-left-sm counter-font"><span>Severity: </span><span data-ng-style="getSeverity(alert)[1]">{{ getSeverity(alert)[0] }}</span></div><br></td>
-                            </tr>
+                              <div class="padding-left-sm counter-font"><span>Severity: </span><span
+                                  data-ng-style="alert._severity_color">{{ alert._severity_value }}</span></div><br>
+                            </td>
+                          </tr>
                         </table>
                       </div>
                       <br data-ng-show="technique._show_alerts">
                       <div class="counter-font">
-                        <a data-ng-class="{'disable': technique._incidentCount == 0}" href=""
-                           data-ng-click="toggleShowRelationships(technique, 'incidents'); $event.stopPropagation();">
+                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._incidentCount == 0} : {'disable': technique._incidentCount == 0}"
+                          href=""
+                          data-ng-click="toggleShowRelationships(technique, 'incidents', true); $event.stopPropagation();">
                           Incidents: {{ technique._incidentCount }}</a>
                       </div>
-                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink" data-ng-if="technique._incidents_processing">
+                      <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md shrink"
+                        data-ng-if="technique._incidents_processing">
                         <cs-spinner data-show-background="true"></cs-spinner>
                       </div>
                       <div class="margin-top-sm" data-ng-show="technique._show_incidents">
                         <table class="mitre-subtechniques-table" width="100%">
                           <tr data-ng-repeat="incident in technique._incidents">
-                            <td data-ng-class="config.enableHeatmap ? 'mitre-relationships-cells heatmap' : 'mitre-relationships-cells'"
-                                data-ng-click="openRecord(incidents.module, incident['@id']); $event.stopPropagation();">
+                            <td class="mitre-relationships-cells"
+                              data-ng-click="openRecord(incidents.module, incident['@id']); $event.stopPropagation();">
                               <div class="padding-sm">{{ incident.name }}</div>
-                              <div class="padding-left-sm counter-font"><span>Severity: </span><span data-ng-style="getSeverity(incident)[1]">{{ getSeverity(incident)[0] }}</span></div><br></td>
-                            </tr>
+                              <div class="padding-left-sm counter-font"><span>Severity: </span><span
+                                  data-ng-style="incident._severity_color">{{ incident._severity_value }}</span></div>
+                              <br>
+                            </td>
+                          </tr>
                         </table>
                       </div>
                     </td>
@@ -161,7 +180,8 @@
           </tbody>
         </table>
       </div>
-      <div class="watermark" data-ng-hide="unauthorized" data-ng-if="!processing && (!tacticsRecords || tacticsRecords.length === 0)">No Records Found
+      <div class="watermark" data-ng-hide="unauthorized"
+        data-ng-if="!processing && (!tacticsRecords || tacticsRecords.length === 0)">No Records Found
       </div>
       <div class="padding-top-sm padding-right-md padding-bottom-sm padding-left-md" data-ng-if="processing">
         <cs-spinner data-show-background="true"></cs-spinner>
@@ -169,10 +189,18 @@
     </div>
   </div>
   <div data-ng-show="unauthorized" class="unauthorized-message">
-    <h6 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">You do not have necessary permissions to view all MITRE modules. Please make sure all MITRE modules (Groups, Mitigations, Software, Subtechniques, Techniques) are
+    <h6 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">You do not have necessary read
+      permissions to view relevant MITRE modules. Please make sure the following MITRE modules: Tactics, Techniques, and
+      Subtechniques are
       available to the current user.</h6>
   </div>
   <div data-ng-show="detail_not_found && detail_display">
-    <h4 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">This record is not related to any MITRE ATT&CK records. If you would like see this widget in its full extent, try adding it as a dashboard widget.</h4>
+    <h4 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">This record is not related to any
+      MITRE ATT&CK records. If you would like see this widget in its full extent, try adding it as a dashboard widget.
+    </h4>
+  </div>
+  <div data-ng-show="hide_all">
+    <h4 class="text-center padding-top-lg padding-bottom-lg font200 font-size-15">Only Incidents are viewable in the
+      widget when enabled within the detail record view.</h4>
   </div>
 </div>
