@@ -68,7 +68,7 @@
       if ($scope.config.toggleDisabledExpand == undefined) {
         $scope.config.toggleDisabledExpand = false;
       }
-      if ($scope.config.previousGroups.length != 0 && $scope.config.filterGroups) {
+      if ($scope.config.previousGroups && $scope.config.previousGroups.length != 0 && $scope.config.filterGroups) {
         $scope.config.selectedGroups = $scope.config.previousGroups;
       }
       else {
