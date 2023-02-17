@@ -47,7 +47,9 @@
                 <table class="inner-mitre-table" width="100%">
                   <tr data-ng-repeat="technique in tactic.techniques">
                     <td
-                      data-ng-class="(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) ? 'heatmap mitre-techniques-cells padding-sm' : 'mitre-techniques-cells padding-sm'"
+                      data-ng-class="[(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) ? 'heatmap' : '',
+                                     currentTheme == 'light' ? 'mitre-techniques-cells-light padding-sm' : 'mitre-techniques-cells padding-sm']"
+                      data-ng-style="(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) && currentTheme == 'light' ? {'color': 'white'} : {}"
                       data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
                       data-ng-click="openRecord(techniques.module, technique['@id'])">
                       <div class="bold">{{ technique.name }}</div>
@@ -75,7 +77,7 @@
                                 subtechnique.mitreId }}</div>
                               <br>
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._alertCount == 0} : {'disable': subtechnique._alertCount == 0}"
+                                <a data-ng-class="currentTheme == 'light' && !((technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage)) ? {'disable-light': subtechnique._alertCount == 0} : {'disable': subtechnique._alertCount == 0}"
                                   href=""
                                   data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'alerts', true); $event.stopPropagation();">
                                   Alerts: {{ subtechnique._alertCount }}</a>
@@ -99,8 +101,7 @@
                               </div>
                               <br data-ng-show="subtechnique._show_alerts">
                               <div class="counter-font padding-right-sm padding-left-sm">
-                                <a data-ng-class="currentTheme == 'light' ? {'disable-light': subtechnique._incidentCount == 0} : {'disable': subtechnique._incidentCount == 0}"
-                                  href=""
+                                <a data-ng-class="currentTheme == 'light' && !((technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage)) ? {'disable-light': subtechnique._incidentCount == 0} : {'disable': subtechnique._incidentCount == 0}"
                                   data-ng-click="toggleShowSubtechniqueRelationships(subtechnique, 'incidents', true); $event.stopPropagation();">
                                   Incidents: {{ subtechnique._incidentCount }}</a>
                               </div>
@@ -127,7 +128,7 @@
                       </div>
                       <br data-ng-show="technique._show_subtechniques || technique._show_subtechniques_coverage">
                       <div class="counter-font">
-                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._alertCount == 0} : {'disable': technique._alertCount == 0}"
+                        <a data-ng-class="currentTheme == 'light' && !((technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage)) ? {'disable-light': technique._alertCount == 0} : {'disable': technique._alertCount == 0}"
                           href=""
                           data-ng-click="toggleShowRelationships(technique, 'alerts', true); $event.stopPropagation();">
                           Alerts: {{ technique._alertCount }}</a>
@@ -150,7 +151,7 @@
                       </div>
                       <br data-ng-show="technique._show_alerts">
                       <div class="counter-font">
-                        <a data-ng-class="currentTheme == 'light' ? {'disable-light': technique._incidentCount == 0} : {'disable': technique._incidentCount == 0}"
+                        <a data-ng-class="currentTheme == 'light' && !((technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage)) ? {'disable-light': technique._incidentCount == 0} : {'disable': technique._incidentCount == 0}"
                           href=""
                           data-ng-click="toggleShowRelationships(technique, 'incidents', true); $event.stopPropagation();">
                           Incidents: {{ technique._incidentCount }}</a>

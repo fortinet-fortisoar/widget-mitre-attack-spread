@@ -50,6 +50,13 @@
         ]
       }
     };
+
+    if ($scope.config.alertsQuery != undefined && $scope.config.alertsQuery.filters.length != 0 ) {
+      var old_alerts_filter = {"logic" : $scope.alerts.query.logic, "filters" : $scope.alerts.query.filters};
+      $scope.alerts.query.logic = "AND";
+      $scope.alerts.query.filters = [old_alerts_filter, $scope.config.alertsQuery];
+    }
+
     $scope.incidents = {
       "module": "incidents",
       "query": {
@@ -73,6 +80,13 @@
         ]
       }
     };
+
+    
+    if ($scope.config.incidentsQuery != undefined && $scope.config.incidentsQuery.filters.length != 0) {
+      var old_incidents_filter = {"logic": $scope.incidents.query.logic, "filters": $scope.incidents.query.filters};
+      $scope.incidents.query.logic = "AND";
+      $scope.incidents.query.filters = [old_incidents_filter, $scope.config.incidentsQuery];
+    }
 
     // the query is changed for the details page
     if ($state.params.page.includes('detail') && $state.params.module === $scope.incidents.module) {
@@ -109,6 +123,11 @@
           ]
         }
       };
+
+      if ($scope.config.incidentsQuery != undefined && $scope.config.incidentsQuery.filters.length != 0) {
+        $scope.incidents.query.filters.push($scope.config.incidentsQuery);
+      }
+
       $scope.alerts = {
         "module": "alerts",
         "query": {
@@ -142,6 +161,10 @@
           ]
         }
       };
+
+      if ($scope.config.alertsQuery != undefined && $scope.config.alertsQuery.filters.length != 0) {
+        $scope.alerts.query.filters.push($scope.config.alertsQuery);
+      }
     }
 
     $scope.getTactics = getTactics;
