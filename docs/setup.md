@@ -21,3 +21,5 @@ Provide the following details to customize the MITRE ATT&CK Alert Incident Sprea
 | Hide Empty Tactics | An optional toggle to hide all MITRE ATT&CK Tactics from view if they do not have any related Techniques. |
 | Hide Empty Techniques | An optional toggle to hide all MITRE ATT&CK Techniques from view if they do not have any related Subtechniques, Alerts, or Incidents. |
 | Filter Based On Groups | An optional toggle to show/hide MITRE ATT&CK Techniques based on the selected MITRE ATT&CK Groups. Techniques will only be displayed if they are related to at least one of the selected Groups. |
+| Alerts Filter Criteria | Allows the user to filter Alerts on the widget table by any Alert field or a combination of fields. |
+| Incidents Filter Criteria | Allows the user to filter Incidents on the widget table by any Incident field or a combination of fields. |
