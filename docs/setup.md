@@ -15,10 +15,11 @@ Provide the following details to customize the MITRE ATT&CK Alert Incident Sprea
 | Fields     | Description                              |
 | ---------- | ---------------------------------------- |
 | Title      | Specify the optional custom heading or title for the widget. |
-| Enable Heatmap View | An optional toggle to highlight all Alerts and Incidents available to view in the widget. |
+| Show Alert and Incident Coverage | An optional toggle to highlight all Alerts and Incidents available to view in the widget in red hue. |
 | Expand All Techniques | An optional toggle to expand all MITRE ATT&CK Technique cells for a broader view of its related records. |
 | Enable All Subtechniques | An optional toggle to expand all MITRE ATT&CK Subtechnique cells for a broader view of its related records. |
 | Hide Empty Tactics | An optional toggle to hide all MITRE ATT&CK Tactics from view if they do not have any related Techniques. |
 | Hide Empty Techniques | An optional toggle to hide all MITRE ATT&CK Techniques from view if they do not have any related Subtechniques, Alerts, or Incidents. |
-| Hide Tactics If All Related Techniques Are Hidden | An optional toggle to hide MITRE ATT&CK Tactics if all of its related Techniques are hidden by other filters enforced by the widget. |
 | Filter Based On Groups | An optional toggle to show/hide MITRE ATT&CK Techniques based on the selected MITRE ATT&CK Groups. Techniques will only be displayed if they are related to at least one of the selected Groups. |
+| Alerts Filter Criteria | Allows the user to filter Alerts on the widget table by any Alert field or a combination of fields. |
+| Incidents Filter Criteria | Allows the user to filter Incidents on the widget table by any Incident field or a combination of fields. |

@@ -9,7 +9,16 @@
 <img src="https://raw.githubusercontent.com/fortinet-fortisoar/widget-mitre-attack-spread/develop/docs/media/edit_view.png" alt="Editing the MITRE ATT&CK Alert Incident Spread Widget" style="border: 1px solid #A9A9A9; border-radius: 4px; padding: 10px; display: block; margin-left: auto; margin-right: auto;">
 
 **MITRE ATT&CK Alert Incident Spread Widget - Dashboard View**:
+
 <img src="https://raw.githubusercontent.com/fortinet-fortisoar/widget-mitre-attack-spread/develop/docs/media/dashboard_view.png" alt="Viewing the MITRE ATT&CK Alert Incident Spread Widget on the Dashboard page" style="border: 1px solid #A9A9A9; border-radius: 4px; padding: 10px; display: block; margin-left: auto; margin-right: auto;">
+
+**MITRE ATT&CK Alert Incident Spread Widget - Dashboard View with Alert and Incident Coverage**:
+
+<img src="https://raw.githubusercontent.com/fortinet-fortisoar/widget-mitre-attack-spread/develop/docs/media/dashboard_view_heatmap.png" alt="Viewing the MITRE ATT&CK Alert Incident Spread Widget on the Dashboard page with Alert and Incident Coverage" style="border: 1px solid #A9A9A9; border-radius: 4px; padding: 10px; display: block; margin-left: auto; margin-right: auto;">
+
+**MITRE ATT&CK Alert Incident Spread Widget - Detail View**:
+
+<img src="https://raw.githubusercontent.com/fortinet-fortisoar/widget-mitre-attack-spread/develop/docs/media/detail_view.png" alt="Viewing the MITRE ATT&CK Alert Incident Spread Widget on the Incident detail page" style="border: 1px solid #A9A9A9; border-radius: 4px; padding: 10px; display: block; margin-left: auto; margin-right: auto;">
 
 Prerequisites to using the MITRE ATT&CK Alert Incident Spread Widget:
 
