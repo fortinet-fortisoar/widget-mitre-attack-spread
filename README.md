@@ -1,6 +1,6 @@
 ## Release Information
 
-- **Version**: 1.0.0 <sup>Preview</sup>
+- **Version**: 1.0.1 <sup>Preview</sup>
 
 - **Certified**: No
 
