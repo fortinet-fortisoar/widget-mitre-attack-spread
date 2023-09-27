@@ -81,7 +81,7 @@
       }
     };
 
-    
+
     if ($scope.config.incidentsQuery != undefined && $scope.config.incidentsQuery.filters.length != 0) {
       var old_incidents_filter = {"logic": $scope.incidents.query.logic, "filters": $scope.incidents.query.filters};
       $scope.incidents.query.logic = "AND";
@@ -184,6 +184,7 @@
     $scope.related_tactics = [];
     $scope.currentUser = usersService.getCurrentUser();
     $scope.currentTheme = 'dark';
+    $scope.changeMatrix = changeMatrix;
     $scope.globalRefresh = globalRefresh;
     $scope.hide_all = false;
 
@@ -200,6 +201,10 @@
       'TA0038', 'TA0039',
       'TA0108', 'TA0104', 'TA0110', 'TA0111', 'TA0103', 'TA0102', // ics
       'TA0109', 'TA0100', 'TA0101', 'TA0107', 'TA0106', 'TA0105'];
+    $scope.enterprise_list = $scope.tactics_order.slice(0, 14);
+    $scope.mobile_list = $scope.tactics_order.slice(14, 28);
+    $scope.ics_list = $scope.tactics_order.slice(28);
+    $scope.selected_list = $scope.enterprise_list;
 
     init();
 
@@ -291,7 +296,7 @@
             angular.forEach($scope.subtechniquesRecords, function (subtechnique_record) {
               if (subtechnique_record.parentTechnique != null) { // need this check otherwise it breaks the loop
                 if (technique['@id'] == subtechnique_record.parentTechnique) {
-                  // requires subtechnique object to be cloned 
+                  // requires subtechnique object to be cloned
                   // otherwise clicking on one toggle shows/hides alerts and incidents across all duplicates
                   technique._subtechniques.push(structuredClone(subtechnique_record));
                 }
@@ -526,6 +531,18 @@
         previousParams: JSON.stringify($state.params),
       };
       $state.go(state, params);
+    }
+
+    function changeMatrix(selectedMatrix) {
+      if (selectedMatrix === 'mobile') {
+        $scope.selected_list = $scope.mobile_list;
+      }
+      else if (selectedMatrix === 'ics') {
+        $scope.selected_list = $scope.ics_list;
+      }
+      else {
+        $scope.selected_list = $scope.enterprise_list;
+      }
     }
 
     function globalRefresh() {
