@@ -3,8 +3,18 @@
   <div class="display-flex-space-between margin-chart">
     <div class="padding-right-0 padding-left-0 widget-dashboard-title-width"
       data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-title-width' : 'widget-title-width'">
-      <h5 class="margin-top-0 margin-bottom-0 text-overflow ng-binding">{{ config.title ? config.title : 'MITRE ATT&CK
-        Alert/Incident Spread' }}</h5>
+      <h5 class="margin-top-0 margin-bottom-0 text-overflow ng-binding"><span class="pull-left padding-top-sm">{{ config.title ? config.title : 'MITRE ATT&CK
+        Alert/Incident Spread' }}&nbsp;&nbsp;&nbsp;
+        </span>
+        <span class="pull-left">
+          <select data-ng-readonly="disabled" data-ng-model="selectedMatrix" class="form-control ng-pristine ng-valid ng-empty input-sm ng-touched" data-ng-change="changeMatrix(selectedMatrix)" data-ng-class="::{'input-big': size === 'large', 'input-sm': size === 'small'}" aria-invalid="false">
+            <option value="" disabled selected>Select Matrix</option>
+            <option value="enterprise">Enterprise</option>
+            <option value="mobile">Mobile</option>
+            <option value="ics">ICS</option>
+          </select>
+        </span>
+      </h5>
     </div>
     <div class="padding-left-0 margin-top-8 padding-top-5 pull-left" data-ng-show="detail_display">
       <span class="fa btn btn-sm" data-ng-class="{'hover':isOpen}" data-ng-click="globalRefresh()" role="button"
@@ -24,7 +34,7 @@
             <tr>
               <td class="mitre-techniques-count padding-top-sm padding-left-sm padding-right-sm"
                 data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
-                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail) || (selected_list.indexOf(tactic.mitreId) === -1)">
                 {{ tactic.techniques.length }}
                 {{ tactic.techniques.length === 1 ? 'technique' : 'techniques' }}
               </td>
@@ -32,7 +42,7 @@
             <tr>
               <td class="mitre-tactics-cells padding-bottom-sm padding-left-sm padding-right-sm"
                 data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
-                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail) || (selected_list.indexOf(tactic.mitreId) === -1)">
                 <div class="div-style">
                   <a href="" data-ng-click="openRecord(tactics.module, tactic['@id'])" data-tooltip-placement="top"
                     data-uib-tooltip="{{tactic.mitreId}}" data-tooltip-append-to-body="true">{{ tactic.name }}</a>
@@ -43,7 +53,7 @@
           <tbody data-ng-class="currentTheme == 'light' ? 'mitre-techniques-light' : 'mitre-techniques'">
             <tr>
               <td class="padding-sm" data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
-                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail)">
+                data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail) || (selected_list.indexOf(tactic.mitreId) === -1)">
                 <table class="inner-mitre-table" width="100%">
                   <tr data-ng-repeat="technique in tactic.techniques">
                     <td
