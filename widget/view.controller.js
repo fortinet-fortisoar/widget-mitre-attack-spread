@@ -204,6 +204,7 @@
     $scope.enterprise_list = $scope.tactics_order.slice(0, 14);
     $scope.mobile_list = $scope.tactics_order.slice(14, 28);
     $scope.ics_list = $scope.tactics_order.slice(28);
+    $scope.selectedMatrix = 'enterprise';
     $scope.selected_list = $scope.enterprise_list;
 
     init();
