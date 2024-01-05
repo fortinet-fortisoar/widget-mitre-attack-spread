@@ -2,13 +2,13 @@
 (function () {
   angular
     .module('cybersponse')
-    .controller('mitreAttackSpread100Ctrl', mitreAttackSpread100Ctrl);
+    .controller('mitreAttackSpread101Ctrl', mitreAttackSpread101Ctrl);
 
-  mitreAttackSpread100Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
+  mitreAttackSpread101Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
     '$state', '$filter', 'ALL_RECORDS_SIZE', 'API', '$resource', '_', '$q'
   ];
 
-  function mitreAttackSpread100Ctrl($scope, appModulesService, currentPermissionsService, usersService,
+  function mitreAttackSpread101Ctrl($scope, appModulesService, currentPermissionsService, usersService,
     $state, $filter, ALL_RECORDS_SIZE, API, $resource, _, $q) {
 
     // the relationship fields do not seem to follow a standard naming convention as seen below
