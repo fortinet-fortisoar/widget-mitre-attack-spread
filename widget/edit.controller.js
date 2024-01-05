@@ -77,7 +77,7 @@
         $scope.config.selectedGroups = [];
       }
 
-      if ($state.params.page.includes('detail')) {
+      if ($state.params.page  && $state.params.page.includes('detail')) {
         $scope.toggleDisabled = true;
       }
 
