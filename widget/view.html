@@ -35,8 +35,8 @@
               <td class="mitre-techniques-count padding-top-sm padding-left-sm padding-right-sm"
                 data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
                 data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail) || (selected_list.indexOf(tactic.mitreId) === -1)">
-                {{ tactic.techniques.length }}
-                {{ tactic.techniques.length === 1 ? 'technique' : 'techniques' }}
+                {{ tactic.techniques.length - tactic._hidden_techniques_count}}
+                {{ (tactic.techniques.length - tactic._hidden_techniques_count === 1) || (tactic.techniques.length - tactic._hidden_techniques_count === 0) ? 'technique' : 'techniques' }}
               </td>
             </tr>
             <tr>

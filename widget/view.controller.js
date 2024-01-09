@@ -511,9 +511,9 @@
     function getSeverity(record) {
       var severity_value = 'None';
       var color_value = { color: 'white' };
-      severity_value = record.severity.itemValue;
+      severity_value = record.severity ? record.severity.itemValue : 'None'; //null severity throws error 
       color_value = {
-        'background-color': record.severity.color,
+        'background-color': record.severity ? record.severity.color : 'transparent', //null severity throws error 
         'padding': '2px'
       };
       return [severity_value, color_value];
