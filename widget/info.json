@@ -3,7 +3,7 @@
     "title": "MITRE ATT&CK Alert Incident Spread",
     "subTitle": "Detailed table view of Alerts and Incidents linked to MITRE ATT&CK records",
     "version": "1.0.1",
-    "published_date": "1704460365",
+    "published_date": "1704797732",
     "metadata": {
         "help_online":"https://github.com/fortinet-fortisoar/widget-mitre-attack-spread/blob/release/1.0.1/README.md",
         "description": "Provides a consolidated look into Alert and Incident threats under MITRE ATT&CK records. Requires MITRE ATT&CK Enrichment Framework installed and MITRE ATT&CK records ingested into FortiSOAR via MITRE ATT&CK Connector.",
