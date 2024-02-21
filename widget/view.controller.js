@@ -1,15 +1,19 @@
+/* Copyright start
+  MIT License
+  Copyright (c) 2024 Fortinet Inc
+  Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('mitreAttackSpread100Ctrl', mitreAttackSpread100Ctrl);
+    .controller('mitreAttackSpread101Ctrl', mitreAttackSpread101Ctrl);
 
-  mitreAttackSpread100Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
-    '$state', '$filter', 'ALL_RECORDS_SIZE', 'API', '$resource', '_', '$q'
+  mitreAttackSpread101Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
+    '$state', '$filter', 'ALL_RECORDS_SIZE', 'API', '$resource', '_', '$q', 'Query'
   ];
 
-  function mitreAttackSpread100Ctrl($scope, appModulesService, currentPermissionsService, usersService,
-    $state, $filter, ALL_RECORDS_SIZE, API, $resource, _, $q) {
+  function mitreAttackSpread101Ctrl($scope, appModulesService, currentPermissionsService, usersService,
+    $state, $filter, ALL_RECORDS_SIZE, API, $resource, _, $q, Query) {
 
     // the relationship fields do not seem to follow a standard naming convention as seen below
     // we might want to fix these in the solution pack
@@ -54,7 +58,8 @@
     if ($scope.config.alertsQuery != undefined && $scope.config.alertsQuery.filters.length != 0 ) {
       var old_alerts_filter = {"logic" : $scope.alerts.query.logic, "filters" : $scope.alerts.query.filters};
       $scope.alerts.query.logic = "AND";
-      $scope.alerts.query.filters = [old_alerts_filter, $scope.config.alertsQuery];
+      var _query  = new Query($scope.config.alertsQuery);
+      $scope.alerts.query.filters = [old_alerts_filter, _query.getQuery(true)];
     }
 
     $scope.incidents = {
@@ -85,7 +90,8 @@
     if ($scope.config.incidentsQuery != undefined && $scope.config.incidentsQuery.filters.length != 0) {
       var old_incidents_filter = {"logic": $scope.incidents.query.logic, "filters": $scope.incidents.query.filters};
       $scope.incidents.query.logic = "AND";
-      $scope.incidents.query.filters = [old_incidents_filter, $scope.config.incidentsQuery];
+      var _query  = new Query($scope.config.incidentsQuery);
+      $scope.incidents.query.filters = [old_incidents_filter, _query.getQuery(true)];
     }
 
     // the query is changed for the details page
@@ -204,6 +210,7 @@
     $scope.enterprise_list = $scope.tactics_order.slice(0, 14);
     $scope.mobile_list = $scope.tactics_order.slice(14, 28);
     $scope.ics_list = $scope.tactics_order.slice(28);
+    $scope.selectedMatrix = 'enterprise';
     $scope.selected_list = $scope.enterprise_list;
 
     init();
@@ -510,9 +517,9 @@
     function getSeverity(record) {
       var severity_value = 'None';
       var color_value = { color: 'white' };
-      severity_value = record.severity.itemValue;
+      severity_value = record.severity ? record.severity.itemValue : 'None'; //null severity throws error 
       color_value = {
-        'background-color': record.severity.color,
+        'background-color': record.severity ? record.severity.color : 'transparent', //null severity throws error 
         'padding': '2px'
       };
       return [severity_value, color_value];

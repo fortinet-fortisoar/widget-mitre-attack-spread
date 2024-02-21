@@ -1,4 +1,9 @@
-<link rel="stylesheet" type="text/css" href="mitretest-1.0.0/widgetAssets/css/mitretest.css" />
+<!-- Copyright start
+  MIT License
+  Copyright (c) 2024 Fortinet Inc
+  Copyright end -->
+
+<link rel="stylesheet" type="text/css" href="mitreAttackSpread-1.0.1/widgetAssets/css/mitreAttackSpread.css" />
 <div class="widget widget-container chart">
   <div class="display-flex-space-between margin-chart">
     <div class="padding-right-0 padding-left-0 widget-dashboard-title-width"
@@ -8,8 +13,8 @@
         </span>
         <span class="pull-left">
           <select data-ng-readonly="disabled" data-ng-model="selectedMatrix" class="form-control ng-pristine ng-valid ng-empty input-sm ng-touched" data-ng-change="changeMatrix(selectedMatrix)" data-ng-class="::{'input-big': size === 'large', 'input-sm': size === 'small'}" aria-invalid="false">
-            <option value="" disabled selected>Select Matrix</option>
-            <option value="enterprise">Enterprise</option>
+            <option value="" disabled>Select Matrix</option>
+            <option value="enterprise" selected>Enterprise</option>
             <option value="mobile">Mobile</option>
             <option value="ics">ICS</option>
           </select>
@@ -35,8 +40,8 @@
               <td class="mitre-techniques-count padding-top-sm padding-left-sm padding-right-sm"
                 data-ng-repeat="tactic in tacticsRecords | orderBy:'_order_key'"
                 data-ng-hide="(tactic.techniques.length == 0 && config.hideTactics) || (tactic._hidden_techniques_count == tactic.techniques.length && config.hideParentTactics && !tactic._toggled) || (detail_display && !tactic._toggled_detail) || (selected_list.indexOf(tactic.mitreId) === -1)">
-                {{ tactic.techniques.length }}
-                {{ tactic.techniques.length === 1 ? 'technique' : 'techniques' }}
+                {{ tactic.techniques.length - tactic._hidden_techniques_count}}
+                {{ (tactic.techniques.length - tactic._hidden_techniques_count === 1) || (tactic.techniques.length - tactic._hidden_techniques_count === 0) ? 'technique' : 'techniques' }}
               </td>
             </tr>
             <tr>

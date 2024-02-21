@@ -1,12 +1,16 @@
+/* Copyright start
+  MIT License
+  Copyright (c) 2024 Fortinet Inc
+  Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('editMitreAttackSpread100Ctrl', editMitreAttackSpread100Ctrl);
+    .controller('editMitreAttackSpread101Ctrl', editMitreAttackSpread101Ctrl);
 
-  editMitreAttackSpread100Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
+  editMitreAttackSpread101Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
 
-  function editMitreAttackSpread100Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
+  function editMitreAttackSpread101Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
@@ -77,7 +81,7 @@
         $scope.config.selectedGroups = [];
       }
 
-      if ($state.params.page.includes('detail')) {
+      if ($state.params.page  && $state.params.page.includes('detail')) {
         $scope.toggleDisabled = true;
       }
 
