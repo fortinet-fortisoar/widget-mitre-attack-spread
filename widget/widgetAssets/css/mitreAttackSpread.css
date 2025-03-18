@@ -90,9 +90,11 @@ thead tr:last-of-type {
 }
 
 /* table for subtechniques (currently wraps alerts and incidents as well) */
-/* .mitre-subtechniques-table {
-  border: 2px solid #04AAB1;
-} */
+
+.mitre-subtechniques-table {
+  table-layout: fixed;
+  width: 100%;
+}
 
 .mitre-relationships-cells {
   font-size: 11px;

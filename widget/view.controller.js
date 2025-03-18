@@ -1,18 +1,18 @@
 /* Copyright start
   MIT License
-  Copyright (c) 2024 Fortinet Inc
+  Copyright (c) 2025 Fortinet Inc
   Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('mitreAttackSpread101Ctrl', mitreAttackSpread101Ctrl);
+    .controller('mitreAttackSpread102Ctrl', mitreAttackSpread102Ctrl);
 
-  mitreAttackSpread101Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
+  mitreAttackSpread102Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
     '$state', '$filter', 'ALL_RECORDS_SIZE', 'API', '$resource', '_', '$q', 'Query'
   ];
 
-  function mitreAttackSpread101Ctrl($scope, appModulesService, currentPermissionsService, usersService,
+  function mitreAttackSpread102Ctrl($scope, appModulesService, currentPermissionsService, usersService,
     $state, $filter, ALL_RECORDS_SIZE, API, $resource, _, $q, Query) {
 
     // the relationship fields do not seem to follow a standard naming convention as seen below
