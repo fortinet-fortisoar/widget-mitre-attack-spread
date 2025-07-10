@@ -3,28 +3,27 @@
 
 # Usage
 
-## Technical Overview of MITRE ATT&CK Alerts and Incident Spread in FortiSOAR
-
 FortiSOAR&trade;'s **MITRE ATT&CK Alerts and Incident Spread** widget offers a comprehensive view of security threats using the MITRE ATT&CK framework. Here's a breakdown of its key features:
 
-**1. Tactics Overview:**
+## Tactics Overview
 
 - The top row displays **MITRE ATT&CK Tactics** present in your FortiSOAR environment.
 - Visible tactics depend on:
     - **Ingested MITRE ATT&CK Matrices:** Which attack frameworks are used?
     - **Widget filters:** Are *Hide Empty Tactics* and *Hide Tactics If All Related Techniques Are Hidden* enabled?
 
-**2. Techniques and Subtechniques:**
+## Techniques and Subtechniques
 
 - **Technique rows:**
     - Display technique names and links.
     - Show if techniques have **linked Subtechniques, Alerts, or Incidents**.
     - Clicking links expands the cell for details.
+
 - **Subtechnique rows:**
     - Similar to Techniques, but can have their own linked Alerts and Incidents.
     - Clicking links expands the cell further for Alert and Incident details.
 
-**3. Alerts and Incidents:**
+## Alerts and Incidents
 
 - **Alert and Incident names** are displayed with **severity information**.
 - **Heatmap filter** (if enabled) highlights all Alerts and Incidents for immediate attention.
@@ -79,15 +78,11 @@ This information equips security analysts with a **structured and actionable vie
 
 11. Click **Save** to save the changes and exit widget's edit view.
 
-### MITRE ATT&CK Alert Incident Spread Widget Edit View
-
-![Editing the MITRE ATT&CK Alert Incident Spread Widget](./res/edit_view.png)"
-
-### MITRE ATT&CK Alert Incident Spread Widget - Dashboard View
+### Dashboard View
 
 ![Viewing the MITRE ATT&CK Alert Incident Spread Widget on the Dashboard page](./res/dashboard_view.png)
 
-### MITRE ATT&CK Alert Incident Spread Widget - Dashboard View with Alert and Incident Coverage
+### Dashboard View with Alert and Incident Coverage
 
 ![Viewing the MITRE ATT&CK Alert Incident Spread Widget on the Dashboard page with Alert and Incident Coverage](./res/dashboard_view_heatmap.png)
 
