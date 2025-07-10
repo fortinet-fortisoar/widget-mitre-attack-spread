@@ -1,9 +1,9 @@
 <!-- Copyright start
   MIT License
-  Copyright (c) 2024 Fortinet Inc
+  Copyright (c) 2025 Fortinet Inc
   Copyright end -->
 
-<link rel="stylesheet" type="text/css" href="mitreAttackSpread-1.0.1/widgetAssets/css/mitreAttackSpread.css" />
+<link rel="stylesheet" type="text/css" href="mitreAttackSpread-1.0.2/widgetAssets/css/mitreAttackSpread.css" />
 <div class="widget widget-container chart">
   <div class="display-flex-space-between margin-chart">
     <div class="padding-right-0 padding-left-0 widget-dashboard-title-width"
@@ -63,7 +63,7 @@
                   <tr data-ng-repeat="technique in tactic.techniques">
                     <td
                       data-ng-class="[(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) ? 'heatmap' : '',
-                                     currentTheme == 'light' ? 'mitre-techniques-cells-light padding-sm' : 'mitre-techniques-cells padding-sm']"
+                                     currentTheme == 'light' ? 'mitre-techniques-cells-light padding-sm  word-break' : 'mitre-techniques-cells padding-sm  word-break']"
                       data-ng-style="(technique._show_subtechniques_coverage && config.enableCoverage) || (technique._show_alerts && config.enableCoverage) || (technique._show_incidents && config.enableCoverage) && currentTheme == 'light' ? {'color': 'white'} : {}"
                       data-ng-hide="technique._hide || technique._hide_in_detail_view || technique._hide_by_group"
                       data-ng-click="openRecord(techniques.module, technique['@id'])">
