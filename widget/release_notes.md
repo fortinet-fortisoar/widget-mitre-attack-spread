@@ -1,7 +1,5 @@
 ## What's New
 
-- Following issues have been fixed:
+### UI Enhancements
 
-    - Fixed an issue where alerts and incidents did not render on the MITRE ATT&CK Matrices dashboard if their *Severity* field was blank.
-    - Fixed an issue where selecting a custom time duration for the filter condition *Created On or After* did not reflect on the MITRE ATT&CK Matrices dashboard.
-    - Fixed an issue where the *Technique* count did not reflect the count of techniques under the *Tactics* column.
+Improved layout responsiveness and readability in the MITRE ATT&CK matrix and alert panels, ensuring cleaner visual separation across tactic columns—particularly in high-density alert views.

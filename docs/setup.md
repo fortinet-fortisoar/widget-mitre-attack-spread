@@ -1,5 +1,5 @@
 | [Home](../README.md) |
-|--------------------------------------------|
+|----------------------|
 
 # Installation
 1. To install a widget, click **Content Hub** > **Discover**.
