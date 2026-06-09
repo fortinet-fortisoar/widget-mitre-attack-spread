@@ -16,7 +16,7 @@
         "EDIT_TOGGLE_HIDE_EMPTY_TACTICS_TOOLTIP": "A Tactic is considered empty by the widget if it doesn't have any Technique relationships",
         "EDIT_TOGGLE_HIDE_EMPTY_TECHNIQUES": "Hide Empty Techniques",
         "EDIT_TOGGLE_HIDE_EMPTY_TECHNIQUES_TOOLTIP": "A Technique is considered empty by the widget if it doesn't have any Subtechnique, Alert, or Case relationships",
-        "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "Show Alert and Incident Coverage",
+        "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "Show Alert and Case Coverage",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_HIDE_TOOLTIP": "Enabling this filter highlights and expand all Techniques and Subtechniques with linked Alerts/Cases",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_SHOW_TOOLTIP": "This toggle is enabled by default in record detail view to highlight Techniques linked with the Alert/Case in view",
         "SAVE_BTN": "Save",
