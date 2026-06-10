@@ -29,7 +29,7 @@ Specify following details to customize the **MITRE ATT&CK Alert Case Spread** wi
 | Hide Empty Techniques        | An optional toggle to hide all MITRE ATT&CK Techniques from view if they do not have any related Subtechniques, Alerts, or cases. |
 | Filter Based On Groups       | An optional toggle to show/hide MITRE ATT&CK Techniques if they are related to at least one of the selected Groups.               |
 | Alerts Filter Criteria       | Helps filter Alerts on the widget table by any Alert field or a combination of fields.                                            |
-| Case Filter Criteria         | Helps filter cases on the widget table by any Incident field or a combination of fields.                                          |
+| Case Filter Criteria         | Helps filter cases on the widget table by any Case field or a combination of fields.                                          |
 
 ## Next Steps
 

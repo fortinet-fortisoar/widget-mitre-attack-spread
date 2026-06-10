@@ -3,8 +3,6 @@
 
 # Usage
 
-## Technical Overview of MITRE ATT&CK Alerts and Case Spread in FortiSOAR
-
 FortiSOAR&trade;'s **MITRE ATT&CK Alerts and Case Spread** widget offers a comprehensive view of security threats using the MITRE ATT&CK framework. Here's a breakdown of its key features:
 
 ## Tactics Overview
@@ -35,7 +33,7 @@ FortiSOAR&trade;'s **MITRE ATT&CK Alerts and Case Spread** widget offers a compr
 
 - **Potential attack vectors:** Which MITRE ATT&CK Tactics are present in your environment?
 - **Specific techniques and subtechniques used:** Get details about individual attack steps.
-- **Alerts and incidents triggered:** Identify potential threats and their severity.
+- **Alerts and Cases triggered:** Identify potential threats and their severity.
 - **Heatmap visualization:** Quickly prioritize critical issues.
 
 This information equips security analysts with a **structured and actionable view** of threats, enabling them to **efficiently prioritize and respond** to security incidents.
@@ -58,7 +56,7 @@ This information equips security analysts with a **structured and actionable vie
 
 3. Specify the title of the spread in the **Title** field.
 
-4. Select to toggle **Show Alert and Case Coverage** to highlight and expand Techniques and Subtechniques. Only the techniques and subtechniques linked to alerts and incidents are displayed.
+4. Select to toggle **Show Alert and Case Coverage** to highlight and expand Techniques and Subtechniques. Only the techniques and subtechniques linked to alerts and cases are displayed.
 
 5. Select to toggle **Expand All Techniques** to highlight and expand all Techniques. This toggle is available only when *Show Alert and Case Coverage* is off.
 
@@ -70,7 +68,7 @@ This information equips security analysts with a **structured and actionable vie
 
 9. Define the filter criteria using which to hide alerts from being rendered by this widget.
 
-10. Define the filter criteria using which to hide incidents from being rendered by this widget.
+10. Define the filter criteria using which to hide the cases from being rendered by this widget.
 
 11. Click **Save** to save the changes and exit widget's edit view.
 
