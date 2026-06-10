@@ -40,58 +40,39 @@ FortiSOAR&trade;'s **MITRE ATT&CK Alerts and Case Spread** widget offers a compr
 
 This information equips security analysts with a **structured and actionable view** of threats, enabling them to **efficiently prioritize and respond** to security incidents.
 
-## Mitre ATT&CK Alert/Case Spread
+## MITRE ATT&CK Alert Case Spread Widget - Dashboard View
 
-1. Edit a *Dashboard*'s view template and select the **Add Widget** button.
+![Viewing the MITRE ATT&CK Alert Case Spread Widget on the Dashboard page](./res/dashboard_view.png)
+
+## MITRE ATT&CK Alert Case Spread Widget - Dashboard View with Alert and Case Coverage
+
+![Viewing the MITRE ATT&CK Alert Case Spread Widget on the Dashboard page with Alert and Case Coverage](./res/dashboard_view_heatmap.png)
+
+## Editing the Mitre ATT&CK Alert/Case Spread Widget
+
+![Editing the MITRE ATT&CK Alert Case Spread Widget](./res/edit_view.png)
+
+1. Edit a *Dashboard*'s view template and select the **Add Widget** button. As an example, consider the **MITRE ATT&CK Matrices** dashboard.
 
 2. Select **MITRE ATT&CK Alert Case Spread** from the list to bring up the **MITRE ATT&CK Alert Case Spread** widget's edit view.
 
 3. Specify the title of the spread in the **Title** field.
 
-    ![Edit View, highlighted title field](./res/edit_view_title.png)
-
 4. Select to toggle **Show Alert and Case Coverage** to highlight and expand Techniques and Subtechniques. Only the techniques and subtechniques linked to alerts and incidents are displayed.
-
-    ![Edit View, highlighted Alert and Case Coverage toggle](./res/edit_view_alert_incident_coverage.png)
 
 5. Select to toggle **Expand All Techniques** to highlight and expand all Techniques. This toggle is available only when *Show Alert and Case Coverage* is off.
 
-    ![Edit view, enabled expand all techniques button](./res/edit_view_expand_all_techniques.png)
-
 6. Select to toggle **Hide Empty Tactics** to hide tactics without any Technique relationships.
-
-    ![Edit view, highlighted Hide Empty Tactics button](./res/edit_view_hide_empty_tactics.png)
 
 7. Select to toggle **Hide Empty Techniques** to hide Techniques without any Subtechnique, Alert, or Case relationships.
 
-    ![Edit view, highlighted Hide Empty Techniques button](./res/edit_view_hide_empty_techniques.png)
-
 8. Select to toggle **Filter Based on Groups** and select threat actor groups to filter the Mitre ATT&CK spread.
-
-    ![Edit view, highlighted threat actor groups](./res/edit_view_filter_by_groups.png)
 
 9. Define the filter criteria using which to hide alerts from being rendered by this widget.
 
-    ![Edit view, highlighted filter conditions to hide alerts](./res/edit_view_filter_to_hide_alerts.png)
-
 10. Define the filter criteria using which to hide incidents from being rendered by this widget.
 
-    ![Edit view, highlighted filter conditions to hide alerts](./res/edit_view_filter_to_hide_indicators.png)
-
 11. Click **Save** to save the changes and exit widget's edit view.
-
-### MITRE ATT&CK Alert Case Spread Widget Edit View
-
-![Editing the MITRE ATT&CK Alert Case Spread Widget](./res/edit_view.png)"
-
-### MITRE ATT&CK Alert Case Spread Widget - Dashboard View
-
-![Viewing the MITRE ATT&CK Alert Case Spread Widget on the Dashboard page](./res/dashboard_view.png)
-
-### MITRE ATT&CK Alert Case Spread Widget - Dashboard View with Alert and Case Coverage
-
-![Viewing the MITRE ATT&CK Alert Case Spread Widget on the Dashboard page with Alert and Case Coverage](./res/dashboard_view_heatmap.png)
-
 
 ## Next Steps
 
