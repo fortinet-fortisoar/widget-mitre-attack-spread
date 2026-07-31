@@ -1,6 +1,5 @@
 {
     "mitreAttackSpread": {
-        "CLOSE_BTN": "关闭",
         "EDIT_ALERTS_FILTER_CRITERIA": "告警过滤条件",
         "EDIT_ALERTS_FILTER_CRITERIA_TOOLTIP": "应用此设置的过滤条件后，某些告警将在小部件表格中被隐藏",
         "EDIT_CASES_FILTER_CRITERIA": "案例过滤条件",
@@ -19,7 +18,6 @@
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "显示告警和事件覆盖范围",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_HIDE_TOOLTIP": "启用此过滤器后，将高亮并展开所有与告警/案例关联的技术和子技术",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_SHOW_TOOLTIP": "此开关在记录详情视图中默认启用，以高亮显示与当前查看的告警/案例相关联的技术",
-        "SAVE_BTN": "保存",
         "VIEW_ALERTS": "告警",
         "VIEW_CASES": "案例",
         "VIEW_DETAIL_NOT_FOUND_MSG": "此记录未关联任何 MITRE ATT&CK 记录。如果您希望完整查看此小部件，请尝试将其添加为仪表板小部件。",

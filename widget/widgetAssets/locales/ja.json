@@ -1,6 +1,5 @@
 {
     "mitreAttackSpread": {
-        "CLOSE_BTN": "閉じる",
         "EDIT_ALERTS_FILTER_CRITERIA": "アラートフィルター条件",
         "EDIT_ALERTS_FILTER_CRITERIA_TOOLTIP": "この設定に適用されたフィルター条件により、特定のアラートがウィジェットテーブルで非表示になります",
         "EDIT_CASES_FILTER_CRITERIA": "ケースフィルター条件",
@@ -19,7 +18,6 @@
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "アラートおよびインシデントカバレッジを表示",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_HIDE_TOOLTIP": "このフィルターを有効にすると、リンクされたアラート/ケースを持つすべてのテクニックとサブテクニックが強調表示および展開されます",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_SHOW_TOOLTIP": "このトグルは、表示中のアラート/ケースに関連付けられたテクニックを強調表示するためにレコード詳細ビューでデフォルトで有効になっています",
-        "SAVE_BTN": "保存",
         "VIEW_ALERTS": "アラート",
         "VIEW_CASES": "ケース",
         "VIEW_DETAIL_NOT_FOUND_MSG": "このレコードはMITRE ATT&CKレコードに関連付けられていません。ウィジェットを完全に表示したい場合は、ダッシュボードウィジェットとして追加してください。",

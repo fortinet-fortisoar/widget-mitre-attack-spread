@@ -1,6 +1,5 @@
 {
     "mitreAttackSpread": {
-        "CLOSE_BTN": "Close",
         "EDIT_ALERTS_FILTER_CRITERIA": "Alerts Filter Criteria",
         "EDIT_ALERTS_FILTER_CRITERIA_TOOLTIP": "Filter criteria applied with this setting results in certain Alerts to be hidden in the widget table",
         "EDIT_CASES_FILTER_CRITERIA": "Cases Filter Criteria",
@@ -19,7 +18,6 @@
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "Show Alert and Case Coverage",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_HIDE_TOOLTIP": "Enabling this filter highlights and expand all Techniques and Subtechniques with linked Alerts/Cases",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_SHOW_TOOLTIP": "This toggle is enabled by default in record detail view to highlight Techniques linked with the Alert/Case in view",
-        "SAVE_BTN": "Save",
         "VIEW_ALERTS": "Alerts",
         "VIEW_CASES": "Cases",
         "VIEW_DETAIL_NOT_FOUND_MSG": "This record is not related to any MITRE ATT&CK records. If you would like see this widget in its full extent, try adding it as a dashboard widget.",

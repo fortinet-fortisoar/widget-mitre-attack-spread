@@ -1,6 +1,5 @@
 {
     "mitreAttackSpread": {
-        "CLOSE_BTN": "關閉",
         "EDIT_ALERTS_FILTER_CRITERIA": "警報篩選條件",
         "EDIT_ALERTS_FILTER_CRITERIA_TOOLTIP": "套用此設定的篩選條件後，某些警報將在小工具表格中被隱藏",
         "EDIT_CASES_FILTER_CRITERIA": "案例篩選條件",
@@ -19,7 +18,6 @@
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE": "顯示警報與事件覆蓋範圍",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_HIDE_TOOLTIP": "啟用此篩選器後，將會醒目顯示並展開所有與警報/案例相關聯的技術與子技術",
         "EDIT_TOGGLE_SHOW_ALERT_AND_CASE_COVERAGE_SHOW_TOOLTIP": "此切換在記錄詳細檢視中預設啟用，以醒目顯示與目前檢視之警報/案例相關聯的技術",
-        "SAVE_BTN": "儲存",
         "VIEW_ALERTS": "警報",
         "VIEW_CASES": "案例",
         "VIEW_DETAIL_NOT_FOUND_MSG": "此記錄未與任何 MITRE ATT&CK 記錄相關聯。若您希望完整查看此小工具，請嘗試將其新增為儀表板小工具。",
