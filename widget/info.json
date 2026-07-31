@@ -1,12 +1,12 @@
 {
     "name": "mitreAttackSpread",
-    "title": "MITRE ATT&CK Alert Incident Spread",
-    "subTitle": "Detailed table view of Alerts and Incidents linked to MITRE ATT&CK records",
-    "version": "1.0.2",
-    "published_date": "1742289235",
+    "title": "MITRE ATT&CK Alert Case Spread",
+    "subTitle": "Detailed table view of Alerts and Cases linked to MITRE ATT&CK records",
+    "version": "1.0.3",
+    "published_date": "1785487368",
     "metadata": {
-        "help_online":"https://github.com/fortinet-fortisoar/widget-mitre-attack-spread/blob/release/1.0.2/README.md",
-        "description": "Provides a consolidated look into Alert and Incident threats under MITRE ATT&CK records. Requires MITRE ATT&CK Enrichment Framework installed and MITRE ATT&CK records ingested into FortiSOAR via MITRE ATT&CK Connector.",
+        "help_online":"https://github.com/fortinet-fortisoar/widget-mitre-attack-spread/blob/release/1.0.3/README.md",
+        "description": "Provides a consolidated look into Alert and Case threats under MITRE ATT&CK records. Requires MITRE ATT&CK Enrichment Framework installed and MITRE ATT&CK records ingested into FortiSOAR via MITRE ATT&CK Connector.",
         "pages": [
             "Dashboard",
             "View Panel"
@@ -17,7 +17,7 @@
         "certified": "Yes",
         "publisher": "Fortinet",
         "compatibility": [
-            "7.2.3"
+            "7.6.5"
         ]
     }
 }
