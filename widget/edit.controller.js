@@ -1,16 +1,16 @@
 /* Copyright start
   MIT License
-  Copyright (c) 2025 Fortinet Inc
+  Copyright (c) 2026 Fortinet Inc
   Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('editMitreAttackSpread102Ctrl', editMitreAttackSpread102Ctrl);
+    .controller('editMitreAttackSpread110Ctrl', editMitreAttackSpread110Ctrl);
 
-  editMitreAttackSpread102Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
+  editMitreAttackSpread110Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
 
-  function editMitreAttackSpread102Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
+  function editMitreAttackSpread110Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
