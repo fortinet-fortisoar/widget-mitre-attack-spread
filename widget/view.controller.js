@@ -6,13 +6,13 @@
 (function () {
   angular
     .module('cybersponse')
-    .controller('mitreAttackSpread110Ctrl', mitreAttackSpread110Ctrl);
+    .controller('mitreAttackSpread120Ctrl', mitreAttackSpread120Ctrl);
 
-  mitreAttackSpread110Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
+  mitreAttackSpread120Ctrl.$inject = ['$scope', 'appModulesService', 'currentPermissionsService', 'usersService',
     '$state', '$filter', 'ALL_RECORDS_SIZE', 'API', '$resource', '_', '$q', 'Query'
   ];
 
-  function mitreAttackSpread110Ctrl($scope, appModulesService, currentPermissionsService, usersService,
+  function mitreAttackSpread120Ctrl($scope, appModulesService, currentPermissionsService, usersService,
     $state, $filter, ALL_RECORDS_SIZE, API, $resource, _, $q, Query) {
 
     // the relationship fields do not seem to follow a standard naming convention as seen below
@@ -537,7 +537,7 @@
         previousState: $state.current.name,
         previousParams: JSON.stringify($state.params),
       };
-      $state.go(state, params);
+      $state.go(state, params, { inherit: false });
     }
 
     function changeMatrix(selectedMatrix) {
