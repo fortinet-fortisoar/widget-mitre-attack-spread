@@ -537,7 +537,8 @@
         previousState: $state.current.name,
         previousParams: JSON.stringify($state.params),
       };
-      $state.go(state, params);
+      
+      $state.go(state, params, { inherit: false });
     }
 
     function changeMatrix(selectedMatrix) {
