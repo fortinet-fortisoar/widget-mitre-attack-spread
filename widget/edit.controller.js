@@ -6,11 +6,11 @@
 (function () {
   angular
     .module('cybersponse')
-    .controller('editMitreAttackSpread110Ctrl', editMitreAttackSpread110Ctrl);
+    .controller('editMitreAttackSpread120Ctrl', editMitreAttackSpread120Ctrl);
 
-  editMitreAttackSpread110Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
+  editMitreAttackSpread120Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'ALL_RECORDS_SIZE', '$state', '$resource', 'API', 'Entity'];
 
-  function editMitreAttackSpread110Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
+  function editMitreAttackSpread120Ctrl($scope, $uibModalInstance, config, ALL_RECORDS_SIZE, $state, $resource, API, Entity) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
